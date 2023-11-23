@@ -1,23 +1,20 @@
 package fr.mimifan.projethypixel.frames;
 
-import fr.mimifan.projethypixel.Main;
+import fr.mimifan.projethypixel.api.Ressources;
+import fr.mimifan.projethypixel.events.menu.FileMenuActionListener;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.awt.image.ImageConsumer;
 import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.util.Arrays;
-import java.util.Objects;
 
 public class MainFrame {
 
     private static MainFrame instance = new MainFrame();
     private JFrame frame = new JFrame("Statpixel");
+    private JTabbedPane playersPane = new JTabbedPane();
 
     private final int WIDTH = 700;
     private final int HEIGHT = 500;
@@ -27,12 +24,14 @@ public class MainFrame {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         frame.setJMenuBar(getMenuBar());
-        frame.setIconImage(getIcon());
+        frame.setIconImage(Ressources.getInstance().getHypixelIcon());
+
+        frame.add(playersPane);
 
         frame.pack();
-        frame.setSize(SIZE);
+        frame.setMinimumSize(SIZE);
+        frame.setPreferredSize(SIZE);
         frame.setLocationRelativeTo(null);
-
 
     }
 
@@ -51,6 +50,9 @@ public class MainFrame {
         JMenuItem load = new JMenuItem("Open");
         JMenuItem quit = new JMenuItem("Quit");
 
+        setPlayer.setActionCommand("setplayer");
+        setPlayer.addActionListener(new FileMenuActionListener());
+
         fileMenu.add(setPlayer);
         fileMenu.add(load);
         fileMenu.add(save);
@@ -60,20 +62,13 @@ public class MainFrame {
         return fileMenu;
     }
 
-    public BufferedImage getIcon() {
-        BufferedImage image;
-        File imageFile = new File("src/main/resources/images/hypixel_logo.png");
-
-        try { image = ImageIO.read(imageFile); }
-        catch (IOException e) { throw new RuntimeException(e); }
-
-        return image;
-    }
-
     public JFrame getFrame() {
         return frame;
     }
 
+    public JTabbedPane getPlayersPane() {
+        return playersPane;
+    }
 
     public int getHEIGHT() {
         return HEIGHT;
