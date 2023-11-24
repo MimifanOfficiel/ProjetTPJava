@@ -2,6 +2,7 @@ package fr.mimifan.projethypixel.panels;
 
 import fr.mimifan.projethypixel.api.API;
 import fr.mimifan.projethypixel.api.Player;
+import fr.mimifan.projethypixel.api.data.HypixelData;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,13 +18,24 @@ public class GlobalPanel extends JPanel {
         playerPanel.setLayout(new BoxLayout(playerPanel, BoxLayout.Y_AXIS));
         playerPanel.add(new JLabel("Player Informations"));
         playerPanel.add(Box.createVerticalStrut(Math.min(10, Integer.MAX_VALUE)));
-
+        playerPanel.add(new JLabel(HypixelData.getInstance().getFormattedName(player)));
+        playerPanel.add(new JLabel("<html><font color=green>Level : " + player.getLevel() + "</font></html>"));
+        playerPanel.add(new JLabel("<html><font color=#8932b7>Karma</font> : <font color=#c64fbd>" + player.getKarma() + "</font></html>"));
+        playerPanel.add(Box.createVerticalStrut(Math.min(10, Integer.MAX_VALUE)));
         playerPanel.add(new JLabel("First logged : " + player.getFirstJoin()));
+        playerPanel.add(new JLabel("Last logged : " + player.getLastLogin()));
+        playerPanel.add(Box.createVerticalStrut(Math.min(10, Integer.MAX_VALUE)));
         playerPanel.add(new JLabel("<html>Status : <font " + (player.isOnline() ? "color=green>Online" : "color=red>Offline") + " </font> </html>"));
+        if(player.isOnline()) {
+            playerPanel.add(new JLabel("    Game : " + player.getGameType()));
+            playerPanel.add(new JLabel("    Mode : " + player.getMode()));
+        }
 
-        playerPanel.add(new JLabel(new ImageIcon(API.getInstance().getSkin(player.getName()))));
 
+
+        add(new JLabel(new ImageIcon(API.getInstance().getSkin(player.getName()))));
         add(playerPanel);
-        add(new JLabel("KOUKOU"));
+        //add(new JLabel("KOUKOU"));
     }
+
 }

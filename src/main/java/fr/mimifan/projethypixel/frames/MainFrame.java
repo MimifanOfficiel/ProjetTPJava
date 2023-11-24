@@ -1,6 +1,7 @@
 package fr.mimifan.projethypixel.frames;
 
 import fr.mimifan.projethypixel.api.Ressources;
+import fr.mimifan.projethypixel.events.MainFrameActionListener;
 import fr.mimifan.projethypixel.events.menu.FileMenuActionListener;
 
 import javax.imageio.ImageIO;
@@ -28,6 +29,7 @@ public class MainFrame {
 
         frame.add(playersPane);
 
+
         frame.pack();
         frame.setMinimumSize(SIZE);
         frame.setPreferredSize(SIZE);
@@ -38,6 +40,7 @@ public class MainFrame {
     private JMenuBar getMenuBar() {
         JMenuBar menuBar = new JMenuBar();
         menuBar.add(getFileMenu());
+        menuBar.add(getRefreshButton());
 
         return menuBar;
     }
@@ -60,6 +63,14 @@ public class MainFrame {
         fileMenu.add(quit);
 
         return fileMenu;
+    }
+
+    public JMenu getRefreshButton(){
+        JMenu refreshMenu = new JMenu("Refresh");
+        refreshMenu.addActionListener(new MainFrameActionListener());
+        refreshMenu.setActionCommand("refreshPlayerData");
+
+        return refreshMenu;
     }
 
     public JFrame getFrame() {

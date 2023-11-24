@@ -29,7 +29,7 @@ public class FileMenuActionListener implements ActionListener {
                         } else {
                             playerStats = API.getInstance().getPlayerStatsFromName(valueField.getText());
                         }
-                        PlayerManager.getInstance().addPlayer(new Player(playerStats, API.getInstance().isOnline(playerStats.get("uuid").asText())));
+                        PlayerManager.getInstance().addPlayer(new Player(playerStats.get("player"), API.getInstance().getSession(playerStats.get("player").get("uuid").asText())));
 
 
                     } catch (Exception ignored) {}

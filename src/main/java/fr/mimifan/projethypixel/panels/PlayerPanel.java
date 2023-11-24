@@ -3,10 +3,10 @@ package fr.mimifan.projethypixel.panels;
 
 import fr.mimifan.projethypixel.api.Player;
 import fr.mimifan.projethypixel.api.Ressources;
-import fr.mimifan.projethypixel.events.player.PlayerPanelActionListener;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 public class PlayerPanel extends JPanel {
 
@@ -29,14 +29,6 @@ public class PlayerPanel extends JPanel {
         infosPane.add("General", globalPanel);
         infosPane.add("Bedwars", bedwarsPanel);
 
-        refreshPlayer.setIcon(new ImageIcon(Ressources.getInstance().getRefreshIcon().getScaledInstance(20, 20, Image.SCALE_SMOOTH)));
-        refreshPlayer.setBackground(Color.WHITE);
-        refreshPlayer.setMinimumSize(new Dimension(30, 30));
-        refreshPlayer.setMaximumSize(new Dimension(40, 40));
-        refreshPlayer.addActionListener(new PlayerPanelActionListener());
-        refreshPlayer.setActionCommand("refreshPlayerData " + player.getUUID());
-
-        add(refreshPlayer, BorderLayout.NORTH);
         add(infosPane, BorderLayout.CENTER);
         return this;
     }

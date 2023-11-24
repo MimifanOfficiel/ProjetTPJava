@@ -17,13 +17,17 @@ public class API {
     private URL requestURL = null;
 
     public JsonNode getPlayerStatsFromName(String name){
+        return getPlayerStatsFromUUID(getUUID(name));
+    }
+
+    public String getUUID(String name) {
         try {
-            requestURL = new URL("https://api.hypixel.net/player?key=" + privateApiKey + "&name=" + name);
+            requestURL = new URL("https://api.mojang.com/users/profiles/minecraft/"+name);
             HttpURLConnection con = (HttpURLConnection) requestURL.openConnection();
             con.setRequestMethod("GET");
 
             if(con.getResponseCode() != 200) return null;
-            return getJSONResponse(getRequestResponse(con.getInputStream()));
+            return getJSONResponse(getRequestResponse(con.getInputStream())).get("id").asText();
 
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -37,6 +41,7 @@ public class API {
             con.setRequestMethod("GET");
 
             if(con.getResponseCode() != 200) return null;
+            System.out.println(con.getResponseCode());
             return getJSONResponse(getRequestResponse(con.getInputStream()));
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -60,18 +65,18 @@ public class API {
 
     public JsonNode getJSONResponse(String responseString){
         ObjectMapper objectMapper = new ObjectMapper();
-        try { return objectMapper.readTree(responseString).get("player"); }
+        try { return objectMapper.readTree(responseString); }
         catch (Exception e) { e.printStackTrace(); }
         return null;
     }
 
-    public boolean isOnline(String uuid){
+    public JsonNode getSession(String uuid){
         try {
             requestURL = new URL("https://api.hypixel.net/status?key=" + privateApiKey + "&uuid=" + uuid);
             HttpURLConnection con = (HttpURLConnection) requestURL.openConnection();
             con.setRequestMethod("GET");
 
-            if(con.getResponseCode() != 200) return false;
+            if(con.getResponseCode() != 200) return null;
             StringBuilder content = new StringBuilder();
             BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
 
@@ -79,13 +84,13 @@ public class API {
             while ((inputLine = in.readLine()) != null) content.append(inputLine);
             in.close();
 
-            return (new ObjectMapper()).readTree(content.toString()).get("session").get("online").asBoolean();
+            return (new ObjectMapper()).readTree(content.toString()).get("session");
         } catch (IOException e) { throw new RuntimeException(e); }
     }
 
     public BufferedImage getSkin(String playerName) {
         try {
-            requestURL = new URL("https://minotar.net/armor/body/" + playerName + "/100.png");
+            requestURL = new URL("https://minotar.net/armor/body/" + playerName + "/150.png");
             HttpURLConnection con = (HttpURLConnection) requestURL.openConnection();
             con.setRequestMethod("GET");
 
