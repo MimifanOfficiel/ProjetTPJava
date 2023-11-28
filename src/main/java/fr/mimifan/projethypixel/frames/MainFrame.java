@@ -16,6 +16,7 @@ public class MainFrame {
     private static MainFrame instance = new MainFrame();
     private JFrame frame = new JFrame("Statpixel");
     private JTabbedPane playersPane = new JTabbedPane();
+    private JMenu refreshMenu = new JMenu("Refresh");
 
     private final int WIDTH = 700;
     private final int HEIGHT = 500;
@@ -28,6 +29,8 @@ public class MainFrame {
         frame.setIconImage(Ressources.getInstance().getHypixelIcon());
 
         frame.add(playersPane);
+
+        refreshMenu.addMouseListener(new MainFrameActionListener());
 
 
         frame.pack();
@@ -66,10 +69,6 @@ public class MainFrame {
     }
 
     public JMenu getRefreshButton(){
-        JMenu refreshMenu = new JMenu("Refresh");
-        refreshMenu.addActionListener(new MainFrameActionListener());
-        refreshMenu.setActionCommand("refreshPlayerData");
-
         return refreshMenu;
     }
 

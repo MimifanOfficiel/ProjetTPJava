@@ -30,6 +30,7 @@ public class Player {
         this.infos = infos;
         this.session = session;
         this.online = session.get("online").asBoolean();
+        this.bedwarsInfos = new Bedwars(infos.get("stats").get("Bedwars"));
         if(online) {
             this.gameType = session.get("gameType").asText();
             this.mode = session.get("mode").asText();

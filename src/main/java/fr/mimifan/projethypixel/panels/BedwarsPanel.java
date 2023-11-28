@@ -11,6 +11,9 @@ public class BedwarsPanel extends JPanel {
 
     public BedwarsPanel(Bedwars bedwarsInfos) {
         this.bedwarsInfos = bedwarsInfos;
+        add(new JLabel("Total Deaths : " + bedwarsInfos.getDeaths()));
+        add(new JLabel("Total Losses : " + bedwarsInfos.getLosses()));
+        add(new JLabel("Total Wins   : " + bedwarsInfos.getWins()));
     }
 
 

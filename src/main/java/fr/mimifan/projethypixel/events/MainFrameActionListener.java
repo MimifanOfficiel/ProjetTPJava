@@ -1,6 +1,7 @@
 package fr.mimifan.projethypixel.events;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import fr.mimifan.projethypixel.Main;
 import fr.mimifan.projethypixel.api.API;
 import fr.mimifan.projethypixel.api.Player;
 import fr.mimifan.projethypixel.frames.MainFrame;
@@ -9,14 +10,22 @@ import fr.mimifan.projethypixel.panels.PlayerPanel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-public class MainFrameActionListener implements ActionListener {
+public class MainFrameActionListener implements ActionListener, MouseListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getActionCommand().equals("refreshPlayerData")){
-            System.out.println("hey");
+
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        if(e.getSource().equals(MainFrame.getInstance().getRefreshButton())){
+            MainFrame.getInstance().getRefreshButton().setSelected(false);
             int index = MainFrame.getInstance().getPlayersPane().getSelectedIndex();
+            if(index < 0) return;
             String playerName = MainFrame.getInstance().getPlayersPane().getTitleAt(index);
             String uuid = API.getInstance().getUUID(playerName);
 
@@ -29,7 +38,29 @@ public class MainFrameActionListener implements ActionListener {
 
             PlayerManager.getInstance().addPlayer(player, playerPanel);
             playerPanel.load(player);
+
+            playerPanel.revalidate();
+            playerPanel.repaint();
         }
     }
 
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
+    }
 }
