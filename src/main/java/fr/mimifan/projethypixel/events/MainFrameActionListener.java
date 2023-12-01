@@ -26,10 +26,12 @@ public class MainFrameActionListener implements ActionListener, MouseListener {
             MainFrame.getInstance().getRefreshButton().setSelected(false);
             int index = MainFrame.getInstance().getPlayersPane().getSelectedIndex();
             if(index < 0) return;
+
             String playerName = MainFrame.getInstance().getPlayersPane().getTitleAt(index);
             String uuid = API.getInstance().getUUID(playerName);
 
             PlayerPanel playerPanel = PlayerManager.getInstance().getPlayerPanel(uuid);
+            int gameIndex = playerPanel.getTabbedPane().getSelectedIndex();
 
             JsonNode playerStats = API.getInstance().getPlayerStatsFromUUID(uuid);
             Player player = new Player(playerStats.get("player"), API.getInstance().getSession(uuid));
@@ -38,6 +40,7 @@ public class MainFrameActionListener implements ActionListener, MouseListener {
 
             PlayerManager.getInstance().addPlayer(player, playerPanel);
             playerPanel.load(player);
+            playerPanel.getTabbedPane().setSelectedIndex(gameIndex);
 
             playerPanel.revalidate();
             playerPanel.repaint();

@@ -2,6 +2,7 @@ package fr.mimifan.projethypixel.api;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import fr.mimifan.projethypixel.api.data.HypixelData;
+import fr.mimifan.projethypixel.api.data.bedwars.Bedwars;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -30,7 +31,7 @@ public class Player {
         this.infos = infos;
         this.session = session;
         this.online = session.get("online").asBoolean();
-        this.bedwarsInfos = new Bedwars(infos.get("stats").get("Bedwars"));
+        this.bedwarsInfos = new Bedwars(infos.get("stats").get("Bedwars"), infos.get("achievements").get("bedwars_level").asInt());
         if(online) {
             this.gameType = session.get("gameType").asText();
             this.mode = session.get("mode").asText();
@@ -51,7 +52,7 @@ public class Player {
     }
 
     private void init() {
-        this.bedwarsInfos = new Bedwars(infos.get("stats").get("Bedwars"));
+        this.bedwarsInfos = new Bedwars(infos.get("stats").get("Bedwars"), infos.get("achievements").get("bedwars_level").asInt());
     }
 
 

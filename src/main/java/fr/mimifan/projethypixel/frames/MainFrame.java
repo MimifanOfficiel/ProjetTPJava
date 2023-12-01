@@ -18,7 +18,7 @@ public class MainFrame {
     private JTabbedPane playersPane = new JTabbedPane();
     private JMenu refreshMenu = new JMenu("Refresh");
 
-    private final int WIDTH = 700;
+    private final int WIDTH = 800;
     private final int HEIGHT = 500;
     private final Dimension SIZE = new Dimension(WIDTH, HEIGHT);
 

@@ -2,11 +2,9 @@ package fr.mimifan.projethypixel.panels;
 
 
 import fr.mimifan.projethypixel.api.Player;
-import fr.mimifan.projethypixel.api.Ressources;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
 
 public class PlayerPanel extends JPanel {
 
@@ -20,6 +18,7 @@ public class PlayerPanel extends JPanel {
     public PlayerPanel load(Player player) {
         this.globalPanel = new GlobalPanel(player);
         this.bedwarsPanel = new BedwarsPanel(player.getBedwarsInfos());
+
 
         removeAll();
         infosPane.removeAll();
@@ -47,4 +46,7 @@ public class PlayerPanel extends JPanel {
         return globalPanel;
     }
 
+    public JTabbedPane getTabbedPane() {
+        return infosPane;
+    }
 }

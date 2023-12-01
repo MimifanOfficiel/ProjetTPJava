@@ -1,6 +1,6 @@
 package fr.mimifan.projethypixel.panels;
 
-import fr.mimifan.projethypixel.api.Bedwars;
+import fr.mimifan.projethypixel.api.data.bedwars.Bedwars;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,9 +11,22 @@ public class BedwarsPanel extends JPanel {
 
     public BedwarsPanel(Bedwars bedwarsInfos) {
         this.bedwarsInfos = bedwarsInfos;
-        add(new JLabel("Total Deaths : " + bedwarsInfos.getDeaths()));
-        add(new JLabel("Total Losses : " + bedwarsInfos.getLosses()));
-        add(new JLabel("Total Wins   : " + bedwarsInfos.getWins()));
+        setBackground(Color.WHITE);
+        setLayout(new GridBagLayout());
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 1.0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+
+        add(new JLabel("<html><font color=green>Bedwars Level : " + bedwarsInfos.getLevel() + "</font></html>"), gbc);
+
+        gbc.gridy = 1;
+        gbc.weighty = 0.9;
+        gbc.fill = GridBagConstraints.BOTH;
+
+        add(new JScrollPane(bedwarsInfos.getStatTable()), gbc);
     }
 
 
