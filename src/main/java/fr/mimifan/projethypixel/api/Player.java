@@ -3,6 +3,7 @@ package fr.mimifan.projethypixel.api;
 import com.fasterxml.jackson.databind.JsonNode;
 import fr.mimifan.projethypixel.api.data.HypixelData;
 import fr.mimifan.projethypixel.api.data.bedwars.Bedwars;
+import fr.mimifan.projethypixel.api.data.skyblock.SkyblockInfos;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -23,6 +24,7 @@ public class Player {
     private int karma;
 
     private Bedwars bedwarsInfos;
+    private SkyblockInfos skyblockInfos;
 
 
     public Player(JsonNode infos, JsonNode session) {
@@ -31,7 +33,7 @@ public class Player {
         this.infos = infos;
         this.session = session;
         this.online = session.get("online").asBoolean();
-        this.bedwarsInfos = new Bedwars(infos.get("stats").get("Bedwars"), infos.get("achievements").get("bedwars_level").asInt());
+        if(infos.get("stats").has("Bedwars")) this.bedwarsInfos = new Bedwars(infos.get("stats").get("Bedwars"), infos.get("achievements").get("bedwars_level").asInt());
         if(online) {
             this.gameType = session.get("gameType").asText();
             this.mode = session.get("mode").asText();
@@ -43,16 +45,12 @@ public class Player {
         //this.rankPlusColor = infos.get("newRankPlusColor").asText();// == null ? null : infos.get("newRankPlusColor").asText();
         this.isSuperstar = infos.has("monthlyPackageRank");
 
-        double level = (Math.sqrt((2 * infos.get("networkExp").asDouble()) + 30625) / 50) - 2.5;
+        double level = infos.has("networkExp") ? (Math.sqrt((2 * infos.get("networkExp").asDouble()) + 30625) / 50 - 2.5) : 0;
         DecimalFormat df = new DecimalFormat("#.##", DecimalFormatSymbols.getInstance(Locale.US));
 
         this.level = Double.parseDouble(df.format(level));
         this.karma = infos.has("karma") ? infos.get("karma").asInt() : 0;
-        init();
-    }
-
-    private void init() {
-        this.bedwarsInfos = new Bedwars(infos.get("stats").get("Bedwars"), infos.get("achievements").get("bedwars_level").asInt());
+        if(infos.get("stats").has("SkyBlock")) this.skyblockInfos = new SkyblockInfos(infos.get("stats").get("SkyBlock"));
     }
 
 

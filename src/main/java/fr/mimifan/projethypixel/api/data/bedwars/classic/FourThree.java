@@ -1,9 +1,9 @@
 package fr.mimifan.projethypixel.api.data.bedwars.classic;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import fr.mimifan.projethypixel.api.data.Infos;
+import fr.mimifan.projethypixel.api.data.bedwars.BedwarsInfo;
 
-public class FourThree extends Infos {
+public class FourThree extends BedwarsInfo {
 
     public FourThree(JsonNode infos) {
         super(infos, "four_three_");

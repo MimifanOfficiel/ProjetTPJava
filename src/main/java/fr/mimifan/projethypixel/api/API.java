@@ -13,7 +13,7 @@ public class API {
 
     private static final API instance = new API();
 
-    private String privateApiKey = "58013315-d5d8-48f2-ab80-afb335f0b086";
+    private String privateApiKey = "64be8b8e-46cd-45dc-b27e-7fb0a3fcb8d1";
     private URL requestURL = null;
 
     public JsonNode getPlayerStatsFromName(String name){

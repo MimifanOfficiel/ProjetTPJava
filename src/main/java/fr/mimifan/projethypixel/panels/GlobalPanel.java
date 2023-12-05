@@ -6,6 +6,7 @@ import fr.mimifan.projethypixel.api.data.HypixelData;
 
 import javax.swing.*;
 import java.awt.*;
+import java.text.NumberFormat;
 
 public class GlobalPanel extends JPanel {
 
@@ -20,7 +21,7 @@ public class GlobalPanel extends JPanel {
         playerPanel.add(Box.createVerticalStrut(Math.min(10, Integer.MAX_VALUE)));
         playerPanel.add(new JLabel(HypixelData.getInstance().getFormattedName(player)));
         playerPanel.add(new JLabel("<html><font color=green>Level : " + player.getLevel() + "</font></html>"));
-        playerPanel.add(new JLabel("<html><font color=#8932b7>Karma</font> : <font color=#c64fbd>" + player.getKarma() + "</font></html>"));
+        playerPanel.add(new JLabel("<html><font color=#8932b7>Karma</font> : <font color=#c64fbd>" + NumberFormat.getInstance().format(player.getKarma()) + "</font></html>"));
         playerPanel.add(Box.createVerticalStrut(Math.min(10, Integer.MAX_VALUE)));
         playerPanel.add(new JLabel("First logged : " + player.getFirstJoin()));
         playerPanel.add(new JLabel("Last logged : " + player.getLastLogin()));
@@ -35,7 +36,6 @@ public class GlobalPanel extends JPanel {
 
         add(new JLabel(new ImageIcon(API.getInstance().getSkin(player.getName()))));
         add(playerPanel);
-        //add(new JLabel("KOUKOU"));
     }
 
 }

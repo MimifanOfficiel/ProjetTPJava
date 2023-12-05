@@ -2,6 +2,8 @@ package fr.mimifan.projethypixel.panels;
 
 
 import fr.mimifan.projethypixel.api.Player;
+import fr.mimifan.projethypixel.panels.skyblock.SkyblockPanel;
+import fr.mimifan.projethypixel.panels.skyblock.SkyblockProfilePanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,6 +13,9 @@ public class PlayerPanel extends JPanel {
     private JTabbedPane infosPane = new JTabbedPane();
     private GlobalPanel globalPanel;
     private BedwarsPanel bedwarsPanel;
+    private SkyblockProfilePanel profilePanel;
+    private SkyblockPanel skyblockPanel;
+
     private final JButton refreshPlayer = new JButton();
 
     public PlayerPanel() {}
@@ -18,6 +23,7 @@ public class PlayerPanel extends JPanel {
     public PlayerPanel load(Player player) {
         this.globalPanel = new GlobalPanel(player);
         this.bedwarsPanel = new BedwarsPanel(player.getBedwarsInfos());
+        this.profilePanel = new SkyblockProfilePanel();
 
 
         removeAll();

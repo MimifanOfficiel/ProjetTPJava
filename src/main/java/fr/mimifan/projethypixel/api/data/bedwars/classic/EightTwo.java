@@ -1,12 +1,9 @@
 package fr.mimifan.projethypixel.api.data.bedwars.classic;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import fr.mimifan.projethypixel.api.data.Infos;
+import fr.mimifan.projethypixel.api.data.bedwars.BedwarsInfo;
 
-import java.util.HashMap;
-import java.util.List;
-
-public class EightTwo extends Infos {
+public class EightTwo extends BedwarsInfo {
 
     public EightTwo(JsonNode bedwarsInfos) {
         super(bedwarsInfos, "eight_two_");
