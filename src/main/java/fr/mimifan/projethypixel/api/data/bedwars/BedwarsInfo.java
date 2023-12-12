@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public abstract class BedwarsInfo {
+public class BedwarsInfo {
 
     protected Integer played, wins, losses, kills, deaths, bedsBroken, bedsLost;
     protected Integer level, coins;
@@ -16,7 +16,8 @@ public abstract class BedwarsInfo {
     protected Double ratioKD;
     protected String statName;
 
-    public BedwarsInfo(JsonNode infos, String modePrefix) {
+    public BedwarsInfo(JsonNode infos, String modePrefix, String statName) {
+        this.statName = statName;
         this.played = infos.has(modePrefix + "games_played_bedwars") ? infos.get(modePrefix + "games_played_bedwars").asInt() : null;
         this.wins   = infos.has(modePrefix + "wins_bedwars") ? infos.get(modePrefix + "wins_bedwars").asInt() : null;
         this.losses = infos.has(modePrefix + "losses_bedwars") ? infos.get(modePrefix + "losses_bedwars").asInt() : null;

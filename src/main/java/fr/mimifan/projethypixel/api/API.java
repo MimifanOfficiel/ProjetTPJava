@@ -63,6 +63,20 @@ public class API {
         }
     }
 
+    public JsonNode getSkyblockProfileInfos(String id) {
+        try {
+            URL requestURL = new URL("https://api.hypixel.net/skyblock/profile?key=" + getAPIKey() + "&profile=" + id);
+            HttpURLConnection con = (HttpURLConnection) requestURL.openConnection();
+            con.setRequestMethod("GET");
+
+            if(con.getResponseCode() != 200) return null;
+            System.out.println(con.getResponseCode());
+            return getJSONResponse(getRequestResponse(con.getInputStream()));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public String getRequestResponse(InputStream stream){
         //Ne pas initialiser content ici, si la réponse n'est pas lisible on renverrai un StringBuilder vide
         //Et ce serait plus compliqué à comprendre d'où vient l'erreur.

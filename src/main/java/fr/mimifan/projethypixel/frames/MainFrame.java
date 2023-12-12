@@ -1,5 +1,6 @@
 package fr.mimifan.projethypixel.frames;
 
+import com.formdev.flatlaf.FlatDarculaLaf;
 import fr.mimifan.projethypixel.api.Ressources;
 import fr.mimifan.projethypixel.events.MainFrameActionListener;
 import fr.mimifan.projethypixel.events.menu.FileMenuActionListener;
@@ -10,29 +11,33 @@ import java.awt.*;
 public class MainFrame {
 
     private static MainFrame instance = new MainFrame();
-    private JFrame frame = new JFrame("Statpixel");
-    private JTabbedPane playersPane = new JTabbedPane();
-    private JMenu refreshMenu = new JMenu("Refresh");
+    private JFrame frame;
+    private JTabbedPane playersPane;
+    private JMenu refreshMenu;
 
     private final int WIDTH = 800;
     private final int HEIGHT = 500;
     private final Dimension SIZE = new Dimension(WIDTH, HEIGHT);
 
     public void load(){
+        FlatDarculaLaf.setup();
+        frame = new JFrame("Statpixel");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        refreshMenu = new JMenu("Refresh");
+        refreshMenu.addMouseListener(new MainFrameActionListener());
 
         frame.setJMenuBar(getMenuBar());
         frame.setIconImage(Ressources.getInstance().getHypixelIcon());
 
+        playersPane = new JTabbedPane();
         frame.add(playersPane);
-
-        refreshMenu.addMouseListener(new MainFrameActionListener());
-
 
         frame.pack();
         frame.setMinimumSize(SIZE);
         frame.setPreferredSize(SIZE);
         frame.setLocationRelativeTo(null);
+
     }
 
     private JMenuBar getMenuBar() {

@@ -13,6 +13,8 @@ public class Main {
 
         // Check if API key was changed last time more than 72 hours ago, if so, update it.
         if (System.currentTimeMillis() - API.getInstance().getLastEdit() > 3 * 24 * 60 * 60 * 1000) API.getInstance().changeAPIKey();
+        else MainFrame.getInstance().getFrame().setVisible(true);
+
     }
 
 }

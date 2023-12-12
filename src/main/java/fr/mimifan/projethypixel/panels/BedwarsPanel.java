@@ -13,7 +13,6 @@ public class BedwarsPanel extends JPanel {
 
     public BedwarsPanel(Bedwars bedwarsInfos) {
         this.bedwarsInfos = bedwarsInfos;
-        setBackground(Color.WHITE);
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         addLabelWithIcon("experience_bottle", "Bedwars Level : " + bedwarsInfos.getLevel(), "#2A914E");

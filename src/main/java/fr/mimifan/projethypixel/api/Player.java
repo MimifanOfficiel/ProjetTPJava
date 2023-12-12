@@ -1,37 +1,39 @@
 package fr.mimifan.projethypixel.api;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.mimifan.projethypixel.api.data.HypixelData;
 import fr.mimifan.projethypixel.api.data.bedwars.Bedwars;
 import fr.mimifan.projethypixel.api.data.skyblock.SkyblockInfos;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
-import java.util.Date;
-import java.util.Locale;
+import java.util.*;
 
 public class Player {
 
-    private String username;
-    private String uuid;
-    private String hypixelRank, rankPlusColor, gameType, mode;
+    private final String username;
+    private final String uuid;
+    private final String hypixelRank;
+    private String rankPlusColor;
+    private String gameType;
+    private String mode;
 
-    private Date firstJoin, lastLogin;
-    private JsonNode infos, session;
-    private boolean online, isSuperstar;
+    private final Date firstJoin, lastLogin;
+    private final boolean online, isSuperstar;
 
-    private double level;
-    private int karma;
+    private final double level;
+    private final int karma;
 
     private Bedwars bedwarsInfos;
-    private SkyblockInfos skyblockInfos;
+
+    private final HashMap<String, String> skyblockProfiles = new HashMap<>();
+    private final List<SkyblockInfos> skyblockProfilesInfos = new ArrayList<>();
 
 
     public Player(JsonNode infos, JsonNode session) {
         this.username = infos.get("displayname").asText();
         this.uuid = infos.get("uuid").asText();
-        this.infos = infos;
-        this.session = session;
         this.online = session.get("online").asBoolean();
         if(infos.get("stats").has("Bedwars")) this.bedwarsInfos = new Bedwars(infos.get("stats").get("Bedwars"), infos.get("achievements").get("bedwars_level").asInt());
         if(online) {
@@ -50,7 +52,13 @@ public class Player {
 
         this.level = Double.parseDouble(df.format(level));
         this.karma = infos.has("karma") ? infos.get("karma").asInt() : 0;
-        if(infos.get("stats").has("SkyBlock")) this.skyblockInfos = new SkyblockInfos(infos.get("stats").get("SkyBlock"));
+
+        JsonNode sbNode = infos.get("stats").has("SkyBlock") ? infos.get("stats").get("SkyBlock").get("profiles") : null;
+
+
+        if(sbNode != null)
+            for (JsonNode entry : sbNode) skyblockProfiles.put(entry.get("profile_id").asText(), entry.get("cute_name").asText());
+
     }
 
 
@@ -93,5 +101,9 @@ public class Player {
     public String getMode(){
         if(gameType.equals("SKYBLOCK") && mode.equalsIgnoreCase("dynamic")) return "Someone's Island";
         return mode;
+    }
+
+    public HashMap<String, String> getSkyblockProfiles() {
+        return skyblockProfiles;
     }
 }

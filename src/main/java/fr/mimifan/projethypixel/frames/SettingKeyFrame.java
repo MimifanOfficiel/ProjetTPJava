@@ -6,39 +6,59 @@ import java.awt.*;
 
 public class SettingKeyFrame extends JFrame {
 
-    private final JTextField valueField;
+    private JTextField valueField;
 
     public SettingKeyFrame() {
         super("Change API key");
 
-        JLabel displayLabel = new JLabel("Enter the new API key");
-        valueField = new JTextField();
-
-        JButton okButton = new JButton("OK");
-        okButton.addActionListener(e -> handleOkButton());
-
-        JButton cancelButton = new JButton("Cancel");
-        cancelButton.addActionListener(e -> {
-            dispose();
-        });
-
-        JPanel panel = new JPanel(new GridLayout(3, 2));
-        panel.add(displayLabel);
-        panel.add(new JLabel());
-        panel.add(valueField);
-        panel.add(new JLabel());
-        panel.add(okButton);
-        panel.add(cancelButton);
-
-        setLayout(new BorderLayout());
-        add(panel, BorderLayout.CENTER);
-
-        pack();
+        setResizable(false);
+        setSize(new Dimension(300, 200));
+        setContentPane(buildContentPane());
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setVisible(true);
     }
 
+    private Container buildContentPane() {
+        JPanel panel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+
+        JLabel displayLabel = new JLabel("Enter the new API key");
+        displayLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
+        valueField = new JTextField();
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        gbc.weightx = 1.0;
+        panel.add(valueField, gbc);
+
+        JButton okButton = new JButton("OK");
+        okButton.setPreferredSize(new Dimension(100, 30));
+        okButton.addActionListener(e -> handleOkButton());
+
+        JButton cancelButton = new JButton("Cancel");
+        cancelButton.setPreferredSize(new Dimension(100, 30));
+        cancelButton.addActionListener(e -> dispose());
+
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        panel.add(displayLabel, gbc);
+
+        gbc.gridy = 2;
+        gbc.gridwidth = 1;
+        gbc.anchor = GridBagConstraints.WEST;
+        panel.add(okButton, gbc);
+
+        gbc.gridx = 1;
+        gbc.anchor = GridBagConstraints.EAST;
+        panel.add(cancelButton, gbc);
+
+        return panel;
+    }
     private void handleOkButton() {
         API.getInstance().saveAPIKey(valueField.getText());
         dispose();
