@@ -4,12 +4,8 @@ import fr.mimifan.projethypixel.api.Ressources;
 import fr.mimifan.projethypixel.events.MainFrameActionListener;
 import fr.mimifan.projethypixel.events.menu.FileMenuActionListener;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 public class MainFrame {
 
@@ -37,35 +33,38 @@ public class MainFrame {
         frame.setMinimumSize(SIZE);
         frame.setPreferredSize(SIZE);
         frame.setLocationRelativeTo(null);
-
     }
 
     private JMenuBar getMenuBar() {
         JMenuBar menuBar = new JMenuBar();
-        menuBar.add(getFileMenu());
+        menuBar.add(getOptionsMenu());
         menuBar.add(getRefreshButton());
 
         return menuBar;
     }
 
-    private JMenu getFileMenu() {
-        JMenu fileMenu = new JMenu("File");
+    private JMenu getOptionsMenu() {
+        JMenu optionsMenu = new JMenu("Options");
 
         JMenuItem setPlayer = new JMenuItem("Set Player");
-        JMenuItem save = new JMenuItem("Save");
-        JMenuItem load = new JMenuItem("Open");
+        JMenuItem changeApiKey = new JMenuItem("Change API Key");
         JMenuItem quit = new JMenuItem("Quit");
 
         setPlayer.setActionCommand("setplayer");
         setPlayer.addActionListener(new FileMenuActionListener());
 
-        fileMenu.add(setPlayer);
-        fileMenu.add(load);
-        fileMenu.add(save);
-        fileMenu.addSeparator();
-        fileMenu.add(quit);
+        changeApiKey.setActionCommand("changeKey");
+        changeApiKey.addActionListener(new FileMenuActionListener());
 
-        return fileMenu;
+        quit.setActionCommand("quit");
+        quit.addActionListener(new FileMenuActionListener());
+
+        optionsMenu.add(setPlayer);
+        optionsMenu.add(changeApiKey);
+        optionsMenu.addSeparator();
+        optionsMenu.add(quit);
+
+        return optionsMenu;
     }
 
     public JMenu getRefreshButton(){

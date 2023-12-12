@@ -10,20 +10,17 @@ import java.awt.*;
 
 public class PlayerPanel extends JPanel {
 
-    private JTabbedPane infosPane = new JTabbedPane();
-    private GlobalPanel globalPanel;
-    private BedwarsPanel bedwarsPanel;
+    private final JTabbedPane infosPane = new JTabbedPane();
     private SkyblockProfilePanel profilePanel;
     private SkyblockPanel skyblockPanel;
 
-    private final JButton refreshPlayer = new JButton();
 
     public PlayerPanel() {}
 
     public PlayerPanel load(Player player) {
-        this.globalPanel = new GlobalPanel(player);
-        this.bedwarsPanel = new BedwarsPanel(player.getBedwarsInfos());
-        this.profilePanel = new SkyblockProfilePanel();
+        GlobalPanel globalPanel = new GlobalPanel(player);
+        BedwarsPanel bedwarsPanel = new BedwarsPanel(player.getBedwarsInfos());
+        //this.profilePanel = new SkyblockProfilePanel();
 
 
         removeAll();
@@ -41,15 +38,6 @@ public class PlayerPanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-    }
-
-
-    public BedwarsPanel getBedwarsPanel() {
-        return bedwarsPanel;
-    }
-
-    public GlobalPanel getGlobalPanel() {
-        return globalPanel;
     }
 
     public JTabbedPane getTabbedPane() {

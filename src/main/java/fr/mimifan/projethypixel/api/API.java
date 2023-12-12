@@ -2,19 +2,34 @@ package fr.mimifan.projethypixel.api;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import fr.mimifan.projethypixel.frames.SettingKeyFrame;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.prefs.Preferences;
 
 public class API {
 
     private static final API instance = new API();
 
-    private String privateApiKey = "64be8b8e-46cd-45dc-b27e-7fb0a3fcb8d1";
-    private URL requestURL = null;
+    public String getAPIKey() {
+        return Preferences.userNodeForPackage(API.class).get("papikey", "64be8b8e-46cd-45dc-b27e-7fb0a3fcb8d1");
+    }
+    public void saveAPIKey(String value) {
+        Preferences prefs = Preferences.userNodeForPackage(API.class);
+        prefs.put("papikey", value);
+        prefs.putLong("papikeyLastEdit", System.currentTimeMillis());
+    }
+    public long getLastEdit() {
+        return Preferences.userNodeForPackage(API.class).getLong("papikeyLastEdit", System.currentTimeMillis() - 4 * 24 * 60 * 60 * 1000);
+    }
+    public void changeAPIKey() {
+        SwingUtilities.invokeLater(SettingKeyFrame::new);
+    }
 
     public JsonNode getPlayerStatsFromName(String name){
         return getPlayerStatsFromUUID(getUUID(name));
@@ -22,7 +37,7 @@ public class API {
 
     public String getUUID(String name) {
         try {
-            requestURL = new URL("https://api.mojang.com/users/profiles/minecraft/"+name);
+            URL requestURL = new URL("https://api.mojang.com/users/profiles/minecraft/"+name);
             HttpURLConnection con = (HttpURLConnection) requestURL.openConnection();
             con.setRequestMethod("GET");
 
@@ -36,7 +51,7 @@ public class API {
 
     public JsonNode getPlayerStatsFromUUID(String uuid) {
         try {
-            requestURL = new URL("https://api.hypixel.net/player?key=" + privateApiKey + "&uuid=" + uuid);
+            URL requestURL = new URL("https://api.hypixel.net/player?key=" + getAPIKey() + "&uuid=" + uuid);
             HttpURLConnection con = (HttpURLConnection) requestURL.openConnection();
             con.setRequestMethod("GET");
 
@@ -72,7 +87,7 @@ public class API {
 
     public JsonNode getSession(String uuid){
         try {
-            requestURL = new URL("https://api.hypixel.net/status?key=" + privateApiKey + "&uuid=" + uuid);
+            URL requestURL = new URL("https://api.hypixel.net/status?key=" + getAPIKey() + "&uuid=" + uuid);
             HttpURLConnection con = (HttpURLConnection) requestURL.openConnection();
             con.setRequestMethod("GET");
 
@@ -90,7 +105,7 @@ public class API {
 
     public BufferedImage getSkin(String playerName) {
         try {
-            requestURL = new URL("https://minotar.net/armor/body/" + playerName + "/150.png");
+            URL requestURL = new URL("https://minotar.net/armor/body/" + playerName + "/150.png");
             HttpURLConnection con = (HttpURLConnection) requestURL.openConnection();
             con.setRequestMethod("GET");
 
@@ -107,9 +122,8 @@ public class API {
 
                 byte[] imageBytes = byteArrayOutputStream.toByteArray();
                 ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(imageBytes);
-                BufferedImage bufferedImage = ImageIO.read(byteArrayInputStream);
 
-                return bufferedImage;
+                return ImageIO.read(byteArrayInputStream);
             }
         } catch (IOException e){
             e.printStackTrace();

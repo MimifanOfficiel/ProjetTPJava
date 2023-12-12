@@ -27,12 +27,11 @@ public class GlobalPanel extends JPanel {
         playerPanel.add(new JLabel("Last logged : " + player.getLastLogin()));
         playerPanel.add(Box.createVerticalStrut(Math.min(10, Integer.MAX_VALUE)));
         playerPanel.add(new JLabel("<html>Status : <font " + (player.isOnline() ? "color=green>Online" : "color=red>Offline") + " </font> </html>"));
+
         if(player.isOnline()) {
             playerPanel.add(new JLabel("    Game : " + player.getGameType()));
             playerPanel.add(new JLabel("    Mode : " + player.getMode()));
         }
-
-
 
         add(new JLabel(new ImageIcon(API.getInstance().getSkin(player.getName()))));
         add(playerPanel);
