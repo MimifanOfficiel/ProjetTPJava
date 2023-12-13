@@ -18,16 +18,17 @@ public class BedwarsInfo {
 
     public BedwarsInfo(JsonNode infos, String modePrefix, String statName) {
         this.statName = statName;
-        this.played = infos.has(modePrefix + "games_played_bedwars") ? infos.get(modePrefix + "games_played_bedwars").asInt() : null;
-        this.wins   = infos.has(modePrefix + "wins_bedwars") ? infos.get(modePrefix + "wins_bedwars").asInt() : null;
-        this.losses = infos.has(modePrefix + "losses_bedwars") ? infos.get(modePrefix + "losses_bedwars").asInt() : null;
-        this.kills  = infos.has(modePrefix + "kills_bedwars") ? infos.get(modePrefix + "kills_bedwars").asInt() : null;
-        this.deaths = infos.has(modePrefix + "deaths_bedwars") ? infos.get(modePrefix + "deaths_bedwars").asInt() : null;
-        this.bedsBroken = infos.has(modePrefix + "beds_broken_bedwars") ? infos.get(modePrefix + "beds_broken_bedwars").asInt() : null;
-        this.bedsLost   = infos.has(modePrefix + "beds_lost_bedwars") ? infos.get(modePrefix + "beds_lost_bedwars").asInt() : null;
+        this.played = infos.has(modePrefix + "games_played_bedwars") ? infos.get(modePrefix + "games_played_bedwars").asInt() : 0;
+        this.wins   = infos.has(modePrefix + "wins_bedwars") ? infos.get(modePrefix + "wins_bedwars").asInt() : 0;
+        this.losses = infos.has(modePrefix + "losses_bedwars") ? infos.get(modePrefix + "losses_bedwars").asInt() : 0;
+        this.kills  = infos.has(modePrefix + "kills_bedwars") ? infos.get(modePrefix + "kills_bedwars").asInt() : 0;
+        this.deaths = infos.has(modePrefix + "deaths_bedwars") ? infos.get(modePrefix + "deaths_bedwars").asInt() : 0;
+        this.bedsBroken = infos.has(modePrefix + "beds_broken_bedwars") ? infos.get(modePrefix + "beds_broken_bedwars").asInt() : 0;
+        this.bedsLost   = infos.has(modePrefix + "beds_lost_bedwars") ? infos.get(modePrefix + "beds_lost_bedwars").asInt() : 0;
 
         DecimalFormat df = new DecimalFormat("#.##", DecimalFormatSymbols.getInstance(Locale.US));
-        this.ratioKD = (double) kills/deaths;
+        if(deaths > 0) this.ratioKD = (double) kills/deaths;
+        else this.ratioKD = (double) kills;
         this.ratioKD = Double.parseDouble(df.format(this.ratioKD));
 
         this.coins = infos.has("coins") ? infos.get("coins").asInt() : 0;

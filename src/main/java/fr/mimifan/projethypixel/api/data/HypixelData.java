@@ -1,15 +1,22 @@
 package fr.mimifan.projethypixel.api.data;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import fr.mimifan.projethypixel.api.API;
 import fr.mimifan.projethypixel.api.Player;
 
-import java.awt.*;
 import java.util.HashMap;
 
 public class HypixelData {
 
     private static final HypixelData instance = new HypixelData();
 
-    private HashMap<String, String> rankPrefixes = new HashMap<>();
+    private final HashMap<String, String> rankPrefixes = new HashMap<>();
+    private final HashMap<Integer, Double> farmingRequirements = new HashMap<>(), miningRequirements = new HashMap<>(),
+    combatRequirements = new HashMap<>(), foragingRequirements = new HashMap<>(), farmerRequirements = new HashMap<>(),
+    fishingRequirements = new HashMap<>(), enchantingRequirements = new HashMap<>(), alchemyRequirements = new HashMap<>(),
+    carpentryRequirements = new HashMap<>(), runeCraftingRequirements = new HashMap<>(), socialRequirements = new HashMap<>(),
+    tamingRequirements = new HashMap<>();
+
 
 
     public void init(){
@@ -19,6 +26,7 @@ public class HypixelData {
         rankPrefixes.put("MVP",       "<html><font color=#3ab3da>[MVP]");
         rankPrefixes.put("MVP_PLUS",  "<html><font color=#3ab3da>[MVP</font><font color=red>+</font><font color=#3ab3da>]");
         rankPrefixes.put("SUPERSTAR", "<html><font color=#f9801d>[MVP");
+        
     }
 
 

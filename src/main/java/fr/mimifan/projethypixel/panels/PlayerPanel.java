@@ -7,29 +7,37 @@ import fr.mimifan.projethypixel.panels.skyblock.SkyblockProfilePanel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class PlayerPanel extends JPanel {
 
     private final JTabbedPane infosPane = new JTabbedPane();
-    private SkyblockInfosPanel skyblockPanel;
-
+    private SkyblockProfilePanel profilePanel = null;
 
     public PlayerPanel() {}
 
     public PlayerPanel load(Player player) {
         GlobalPanel globalPanel = new GlobalPanel(player);
         BedwarsPanel bedwarsPanel = new BedwarsPanel(player.getBedwarsInfos());
-        SkyblockProfilePanel profilePanel = new SkyblockProfilePanel(player.getSkyblockProfiles());
 
         removeAll();
         infosPane.removeAll();
 
         setLayout(new BorderLayout());
+        add(infosPane, BorderLayout.CENTER);
+
         infosPane.add("General", globalPanel);
         infosPane.add("Bedwars", bedwarsPanel);
-        infosPane.add("Skyblock", profilePanel);
 
-        add(infosPane, BorderLayout.CENTER);
+        if (player.getSbNode() != null) {
+            CompletableFuture<Void> profileLoadingFuture = CompletableFuture.runAsync(() -> {
+                profilePanel = new SkyblockProfilePanel(player.getSkyblockProfiles());
+            });
+
+            profileLoadingFuture.thenRun(() -> infosPane.add("Skyblock", profilePanel));
+        }
+
         return this;
     }
 

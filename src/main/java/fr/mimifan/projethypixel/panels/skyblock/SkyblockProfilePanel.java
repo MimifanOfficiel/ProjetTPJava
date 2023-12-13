@@ -3,7 +3,10 @@ package fr.mimifan.projethypixel.panels.skyblock;
 import fr.mimifan.projethypixel.api.Ressources;
 import fr.mimifan.projethypixel.api.data.skyblock.SkyblockInfos;
 import fr.mimifan.projethypixel.customLayouts.VerticalFlowLayout;
-import fr.mimifan.projethypixel.events.SkyBlockProfilesActionListener;
+import fr.mimifan.projethypixel.events.skyblock.SkyBlockProfilesActionListener;
+import fr.mimifan.projethypixel.events.skyblock.SkyBlockProfilesMouseListener;
+import fr.mimifan.projethypixel.manager.SkyBlockProfileManager;
+import fr.mimifan.projethypixel.utils.LabelUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,10 +27,15 @@ public class SkyblockProfilePanel extends JPanel {
 
     public SkyblockProfilePanel(HashMap<String, String> profilesIdName){
         setLayout(null);
-        profilesIdName.forEach( (id, name) -> skyblockInfosList.add(new SkyblockInfos(id, name)));
+        profilesIdName.forEach((id, name) -> {
+            SkyblockInfos profile = new SkyblockInfos(id, name);
+            SkyBlockProfileManager.getInstance().addProfile(profile);
+            skyblockInfosList.add(profile);
+        });
 
         addComponentListener(new ComponentAdapter() { @Override public void componentResized(ComponentEvent e) { updateButtonLayout(); }});
     }
+
 
     private void updateButtonLayout() {
         removeAll();
@@ -42,6 +50,8 @@ public class SkyblockProfilePanel extends JPanel {
             button.setBounds(x, y, buttonWidth, buttonHeight);
             add(button);
         }
+
+        add(positionBottomRightPanel());
 
         revalidate();
         repaint();
@@ -81,11 +91,30 @@ public class SkyblockProfilePanel extends JPanel {
             button.setBorderPainted(false);
             button.setLayout(new VerticalFlowLayout());
         }
+        button.setForeground(Color.BLACK);
         button.addActionListener(new SkyBlockProfilesActionListener());
-        button.setActionCommand("profileActionProfile_" + profileId);
+        button.addMouseListener(new SkyBlockProfilesMouseListener());
+        button.putClientProperty("profileId", profileId);
 
         return button;
     }
 
 
+    private JPanel positionBottomRightPanel() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
+        panel.add(LabelUtils.getInstance().getLabelWithIcon("grass_block_side", "Default Island Type", 16, 1.5));
+        panel.add(LabelUtils.getInstance().getLabelWithIcon("oak_sapling", "Stranded Island", 16, 1.5));
+        panel.add(LabelUtils.getInstance().getLabelWithIcon("iron_chestplate", "IronMan Island", 16, 1.5));
+        panel.add(LabelUtils.getInstance().getLabelWithIcon("golden_apple", "Bingo Island", 16, 1.5));
+
+        int panelWidth = 200;
+        int panelHeight = 100;
+        int panelX = getWidth() - panelWidth;
+        int panelY = getHeight() - panelHeight;
+
+        panel.setBounds(panelX, panelY, panelWidth, panelHeight);
+        return panel;
+    }
 }

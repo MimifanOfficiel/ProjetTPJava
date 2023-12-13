@@ -49,6 +49,20 @@ public class API {
         }
     }
 
+    public String getName(String uuid) {
+        try {
+            URL requestURL = new URL("https://playerdb.co/api/player/minecraft/"+uuid);
+            HttpURLConnection con = (HttpURLConnection) requestURL.openConnection();
+            con.setRequestMethod("GET");
+
+            if(con.getResponseCode() != 200) return null;
+            return getJSONResponse(getRequestResponse(con.getInputStream())).get("data").get("player").get("username").asText();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public JsonNode getPlayerStatsFromUUID(String uuid) {
         try {
             URL requestURL = new URL("https://api.hypixel.net/player?key=" + getAPIKey() + "&uuid=" + uuid);
@@ -66,6 +80,20 @@ public class API {
     public JsonNode getSkyblockProfileInfos(String id) {
         try {
             URL requestURL = new URL("https://api.hypixel.net/skyblock/profile?key=" + getAPIKey() + "&profile=" + id);
+            HttpURLConnection con = (HttpURLConnection) requestURL.openConnection();
+            con.setRequestMethod("GET");
+
+            if(con.getResponseCode() != 200) return null;
+            System.out.println(con.getResponseCode());
+            return getJSONResponse(getRequestResponse(con.getInputStream()));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public JsonNode getSkillsLeveling() {
+        try {
+            URL requestURL = new URL("https://api.hypixel.net/resources/skyblock/skills");
             HttpURLConnection con = (HttpURLConnection) requestURL.openConnection();
             con.setRequestMethod("GET");
 

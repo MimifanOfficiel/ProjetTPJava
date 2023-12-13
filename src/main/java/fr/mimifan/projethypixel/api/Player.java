@@ -29,6 +29,7 @@ public class Player {
 
     private final HashMap<String, String> skyblockProfiles = new HashMap<>();
     private final List<SkyblockInfos> skyblockProfilesInfos = new ArrayList<>();
+    private final JsonNode sbNode;
 
 
     public Player(JsonNode infos, JsonNode session) {
@@ -53,7 +54,7 @@ public class Player {
         this.level = Double.parseDouble(df.format(level));
         this.karma = infos.has("karma") ? infos.get("karma").asInt() : 0;
 
-        JsonNode sbNode = infos.get("stats").has("SkyBlock") ? infos.get("stats").get("SkyBlock").get("profiles") : null;
+        sbNode = infos.get("stats").has("SkyBlock") ? infos.get("stats").get("SkyBlock").get("profiles") : null;
 
 
         if(sbNode != null)
@@ -101,6 +102,10 @@ public class Player {
     public String getMode(){
         if(gameType.equals("SKYBLOCK") && mode.equalsIgnoreCase("dynamic")) return "Someone's Island";
         return mode;
+    }
+
+    public JsonNode getSbNode() {
+        return sbNode;
     }
 
     public HashMap<String, String> getSkyblockProfiles() {

@@ -1,7 +1,7 @@
 package fr.mimifan.projethypixel.panels;
 
-import fr.mimifan.projethypixel.api.Ressources;
 import fr.mimifan.projethypixel.api.data.bedwars.Bedwars;
+import fr.mimifan.projethypixel.utils.LabelUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,33 +15,25 @@ public class BedwarsPanel extends JPanel {
         this.bedwarsInfos = bedwarsInfos;
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        addLabelWithIcon("experience_bottle", "Bedwars Level : " + bedwarsInfos.getLevel(), "#2A914E");
-        addLabelWithIcon("gold_nugget", "Coins : " +
-                NumberFormat.getInstance().format(bedwarsInfos.getCoins()), "#FFAA00");
+        add(LabelUtils.getInstance().getLabelWithIcon("experience_bottle",
+                "Bedwars Level : " + bedwarsInfos.getLevel(), "#2A914E", 13, 1.25));
 
-        addLabelWithIcon("iron_ingot", "Iron Ingots collected : " +
-                NumberFormat.getInstance().format(bedwarsInfos.getTotalIronIngots()), "#AAAAAA");
+        add(LabelUtils.getInstance().getLabelWithIcon("gold_nugget", "Coins : " +
+                NumberFormat.getInstance().format(bedwarsInfos.getCoins()), "#FFAA00", 13, 1.25));
 
-        addLabelWithIcon("gold_ingot", "Gold Ingots collected : " +
-                NumberFormat.getInstance().format(bedwarsInfos.getTotalGoldIngots()), "#FFD255");
+        add(LabelUtils.getInstance().getLabelWithIcon("iron_ingot", "Iron Ingots collected : " +
+                NumberFormat.getInstance().format(bedwarsInfos.getTotalIronIngots()), "#AAAAAA", 13, 1.25));
 
-        addLabelWithIcon("diamond", "Diamonds Collected : " +
-                NumberFormat.getInstance().format(bedwarsInfos.getTotalDiamonds()), "#00AAAA");
+        add(LabelUtils.getInstance().getLabelWithIcon("gold_ingot", "Gold Ingots collected : " +
+                NumberFormat.getInstance().format(bedwarsInfos.getTotalGoldIngots()), "#FFD255", 13, 1.25));
 
-        addLabelWithIcon("emerald", "Emeralds Collected : " +
-                NumberFormat.getInstance().format(bedwarsInfos.getTotalEmeralds()), "#00AA00");
+        add(LabelUtils.getInstance().getLabelWithIcon("diamond", "Diamonds Collected : " +
+                NumberFormat.getInstance().format(bedwarsInfos.getTotalDiamonds()), "#00AAAA", 13, 1.25));
+
+        add(LabelUtils.getInstance().getLabelWithIcon("emerald", "Emeralds Collected : " +
+                NumberFormat.getInstance().format(bedwarsInfos.getTotalEmeralds()), "#00AA00", 13, 1.5));
 
         add(new JScrollPane(bedwarsInfos.getStatTable()));
-    }
-
-    private void addLabelWithIcon(String iconName, String labelText, String textHexColor) {
-        Box box = Box.createHorizontalBox();
-        JLabel image = new JLabel();
-        image.setIcon(new ImageIcon(Ressources.getInstance().getTextureImage(iconName)));
-        box.add(image);
-        box.add(new JLabel("<html><font color=" + textHexColor + "> " + labelText + "</font></html>"));
-        box.setAlignmentX(Component.LEFT_ALIGNMENT);
-        add(box);
     }
 
     @Override

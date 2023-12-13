@@ -9,10 +9,10 @@ import java.util.HashMap;
 
 public class PlayerManager {
 
-    private static PlayerManager instance = new PlayerManager();
+    private static final PlayerManager instance = new PlayerManager();
 
-    private HashMap<Player, PlayerPanel> playerPanels = new HashMap<>();
-    private HashMap<String, Player> players = new HashMap<>();
+    private final HashMap<Player, PlayerPanel> playerPanels = new HashMap<>();
+    private final HashMap<String, Player> players = new HashMap<>();
 
     public void addPlayer(Player player) {
         PlayerPanel panel = new PlayerPanel().load(player);
@@ -32,7 +32,6 @@ public class PlayerManager {
         return playerPanels.get(player);
     }
     public PlayerPanel getPlayerPanel(String uuid) {return playerPanels.get(players.get(uuid));}
-    public Player getPlayer(String uuid) { return players.get(uuid); }
 
     public void removePlayer(Player player) {
         playerPanels.remove(player);
