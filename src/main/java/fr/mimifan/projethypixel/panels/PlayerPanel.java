@@ -32,7 +32,7 @@ public class PlayerPanel extends JPanel {
 
         if (player.getSbNode() != null) {
             CompletableFuture<Void> profileLoadingFuture = CompletableFuture.runAsync(() -> {
-                profilePanel = new SkyblockProfilePanel(player.getSkyblockProfiles());
+                profilePanel = new SkyblockProfilePanel(player.getUUID(), player.getSkyblockProfiles());
             });
 
             profileLoadingFuture.thenRun(() -> infosPane.add("Skyblock", profilePanel));

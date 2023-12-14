@@ -99,7 +99,7 @@ public class API {
 
             if(con.getResponseCode() != 200) return null;
             System.out.println(con.getResponseCode());
-            return getJSONResponse(getRequestResponse(con.getInputStream()));
+            return getJSONResponse(getRequestResponse(con.getInputStream())).get("skills");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

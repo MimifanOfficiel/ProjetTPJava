@@ -12,10 +12,9 @@ public class HypixelData {
 
     private final HashMap<String, String> rankPrefixes = new HashMap<>();
     private final HashMap<Integer, Double> farmingRequirements = new HashMap<>(), miningRequirements = new HashMap<>(),
-    combatRequirements = new HashMap<>(), foragingRequirements = new HashMap<>(), farmerRequirements = new HashMap<>(),
-    fishingRequirements = new HashMap<>(), enchantingRequirements = new HashMap<>(), alchemyRequirements = new HashMap<>(),
-    carpentryRequirements = new HashMap<>(), runeCraftingRequirements = new HashMap<>(), socialRequirements = new HashMap<>(),
-    tamingRequirements = new HashMap<>();
+    combatRequirements = new HashMap<>(), foragingRequirements = new HashMap<>(), fishingRequirements = new HashMap<>(),
+    enchantingRequirements = new HashMap<>(), alchemyRequirements = new HashMap<>(), carpentryRequirements = new HashMap<>(),
+    runeCraftingRequirements = new HashMap<>(), socialRequirements = new HashMap<>(), tamingRequirements = new HashMap<>();
 
 
 
@@ -26,7 +25,25 @@ public class HypixelData {
         rankPrefixes.put("MVP",       "<html><font color=#3ab3da>[MVP]");
         rankPrefixes.put("MVP_PLUS",  "<html><font color=#3ab3da>[MVP</font><font color=red>+</font><font color=#3ab3da>]");
         rankPrefixes.put("SUPERSTAR", "<html><font color=#f9801d>[MVP");
-        
+    }
+
+    public void loadSkills() {
+        fillMap(farmingRequirements, "FARMING");
+        fillMap(miningRequirements, "MINING");
+        fillMap(combatRequirements, "COMBAT");
+        fillMap(foragingRequirements, "FORAGING");
+        fillMap(fishingRequirements, "FISHING");
+        fillMap(enchantingRequirements, "ENCHANTING");
+        fillMap(alchemyRequirements, "ALCHEMY");
+        fillMap(carpentryRequirements, "CARPENTRY");
+        fillMap(runeCraftingRequirements, "RUNECRAFTING");
+        fillMap(socialRequirements, "SOCIAL");
+        fillMap(tamingRequirements, "TAMING");
+    }
+
+    private void fillMap(HashMap<Integer, Double> map, String skillName) {
+        JsonNode skillsRequirements = API.getInstance().getSkillsLeveling();
+        for(JsonNode level : skillsRequirements.get(skillName).get("levels")) map.put(level.get("level").asInt(), level.get("totalExpRequired").asDouble());
     }
 
 
@@ -48,6 +65,50 @@ public class HypixelData {
         } else {
             return "<html><font color=#9c9d97>" + player.getName() + "</font></html>";
         }*/
+    }
+
+    public HashMap<Integer, Double> getFarmingRequirements() {
+        return farmingRequirements;
+    }
+
+    public HashMap<Integer, Double> getMiningRequirements() {
+        return miningRequirements;
+    }
+
+    public HashMap<Integer, Double> getCombatRequirements() {
+        return combatRequirements;
+    }
+
+    public HashMap<Integer, Double> getForagingRequirements() {
+        return foragingRequirements;
+    }
+
+    public HashMap<Integer, Double> getFishingRequirements() {
+        return fishingRequirements;
+    }
+
+    public HashMap<Integer, Double> getEnchantingRequirements() {
+        return enchantingRequirements;
+    }
+
+    public HashMap<Integer, Double> getAlchemyRequirements() {
+        return alchemyRequirements;
+    }
+
+    public HashMap<Integer, Double> getCarpentryRequirements() {
+        return carpentryRequirements;
+    }
+
+    public HashMap<Integer, Double> getRuneCraftingRequirements() {
+        return runeCraftingRequirements;
+    }
+
+    public HashMap<Integer, Double> getSocialRequirements() {
+        return socialRequirements;
+    }
+
+    public HashMap<Integer, Double> getTamingRequirements() {
+        return tamingRequirements;
     }
 
     public static HypixelData getInstance() {

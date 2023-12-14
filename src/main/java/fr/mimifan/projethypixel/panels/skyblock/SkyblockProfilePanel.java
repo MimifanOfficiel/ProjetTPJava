@@ -25,10 +25,10 @@ public class SkyblockProfilePanel extends JPanel {
 
     private final List<SkyblockInfos> skyblockInfosList = new ArrayList<>();
 
-    public SkyblockProfilePanel(HashMap<String, String> profilesIdName){
+    public SkyblockProfilePanel(String ownerUUID, HashMap<String, String> profilesIdName){
         setLayout(null);
         profilesIdName.forEach((id, name) -> {
-            SkyblockInfos profile = new SkyblockInfos(id, name);
+            SkyblockInfos profile = new SkyblockInfos(ownerUUID, id, name);
             SkyBlockProfileManager.getInstance().addProfile(profile);
             skyblockInfosList.add(profile);
         });
