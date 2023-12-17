@@ -14,28 +14,28 @@ public class BedwarsInfo {
     protected Integer level, coins;
     protected Integer totalIronIngots, totalGoldIngots, totalDiamonds, totalEmeralds;
     protected Double ratioKD;
-    protected String statName;
+    protected String modeName;
 
-    public BedwarsInfo(JsonNode infos, String modePrefix, String statName) {
-        this.statName = statName;
-        this.played = infos.has(modePrefix + "games_played_bedwars") ? infos.get(modePrefix + "games_played_bedwars").asInt() : 0;
-        this.wins   = infos.has(modePrefix + "wins_bedwars") ? infos.get(modePrefix + "wins_bedwars").asInt() : 0;
-        this.losses = infos.has(modePrefix + "losses_bedwars") ? infos.get(modePrefix + "losses_bedwars").asInt() : 0;
-        this.kills  = infos.has(modePrefix + "kills_bedwars") ? infos.get(modePrefix + "kills_bedwars").asInt() : 0;
-        this.deaths = infos.has(modePrefix + "deaths_bedwars") ? infos.get(modePrefix + "deaths_bedwars").asInt() : 0;
-        this.bedsBroken = infos.has(modePrefix + "beds_broken_bedwars") ? infos.get(modePrefix + "beds_broken_bedwars").asInt() : 0;
-        this.bedsLost   = infos.has(modePrefix + "beds_lost_bedwars") ? infos.get(modePrefix + "beds_lost_bedwars").asInt() : 0;
+    public BedwarsInfo(JsonNode bedwarsInfos, String modePrefix, String modeName) {
+        this.modeName = modeName;
+        this.played     = bedwarsInfos.has(modePrefix + "games_played_bedwars") ? bedwarsInfos.get(modePrefix + "games_played_bedwars").asInt() : 0;
+        this.wins       = bedwarsInfos.has(modePrefix + "wins_bedwars") ? bedwarsInfos.get(modePrefix + "wins_bedwars").asInt() : 0;
+        this.losses     = bedwarsInfos.has(modePrefix + "losses_bedwars") ? bedwarsInfos.get(modePrefix + "losses_bedwars").asInt() : 0;
+        this.kills      = bedwarsInfos.has(modePrefix + "kills_bedwars") ? bedwarsInfos.get(modePrefix + "kills_bedwars").asInt() : 0;
+        this.deaths     = bedwarsInfos.has(modePrefix + "deaths_bedwars") ? bedwarsInfos.get(modePrefix + "deaths_bedwars").asInt() : 0;
+        this.bedsBroken = bedwarsInfos.has(modePrefix + "beds_broken_bedwars") ? bedwarsInfos.get(modePrefix + "beds_broken_bedwars").asInt() : 0;
+        this.bedsLost   = bedwarsInfos.has(modePrefix + "beds_lost_bedwars") ? bedwarsInfos.get(modePrefix + "beds_lost_bedwars").asInt() : 0;
 
         DecimalFormat df = new DecimalFormat("#.##", DecimalFormatSymbols.getInstance(Locale.US));
         if(deaths > 0) this.ratioKD = (double) kills/deaths;
         else this.ratioKD = (double) kills;
         this.ratioKD = Double.parseDouble(df.format(this.ratioKD));
 
-        this.coins = infos.has("coins") ? infos.get("coins").asInt() : 0;
-        this.totalIronIngots = infos.has("iron_resources_collected_bedwars") ? infos.get("iron_resources_collected_bedwars").asInt() : 0;
-        this.totalGoldIngots = infos.has("gold_resources_collected_bedwars") ? infos.get("gold_resources_collected_bedwars").asInt() : 0;
-        this.totalDiamonds = infos.has("diamond_resources_collected_bedwars") ? infos.get("diamond_resources_collected_bedwars").asInt() : 0;
-        this.totalEmeralds = infos.has("emerald_resources_collected_bedwars") ? infos.get("emerald_resources_collected_bedwars").asInt() : 0;
+        this.coins = bedwarsInfos.has("coins") ? bedwarsInfos.get("coins").asInt() : 0;
+        this.totalIronIngots = bedwarsInfos.has("iron_resources_collected_bedwars") ? bedwarsInfos.get("iron_resources_collected_bedwars").asInt() : 0;
+        this.totalGoldIngots = bedwarsInfos.has("gold_resources_collected_bedwars") ? bedwarsInfos.get("gold_resources_collected_bedwars").asInt() : 0;
+        this.totalDiamonds = bedwarsInfos.has("diamond_resources_collected_bedwars") ? bedwarsInfos.get("diamond_resources_collected_bedwars").asInt() : 0;
+        this.totalEmeralds = bedwarsInfos.has("emerald_resources_collected_bedwars") ? bedwarsInfos.get("emerald_resources_collected_bedwars").asInt() : 0;
     }
 
     public Integer getLevel() {
@@ -62,8 +62,8 @@ public class BedwarsInfo {
         return wins;
     }
 
-    public String getStatName() {
-        return statName;
+    public String getModeName() {
+        return modeName;
     }
 
     public Integer getTotalDiamonds() {
@@ -84,7 +84,7 @@ public class BedwarsInfo {
 
     public List<Object> getRow() {
         List<Object> data = new ArrayList<>();
-        data.add(statName);
+        data.add(modeName);
         data.add(played);
         data.add(wins);
         data.add(losses);

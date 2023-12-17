@@ -1,5 +1,10 @@
 package fr.mimifan.projethypixel.utils;
 
+/**
+ * @author <a href="https://www.javatpoint.com/convert-integer-to-roman-numerals-in-java">javatpoint.com</a> <br>
+ * Converts Integer to Roman numerals <br>
+ * In this project, it will be used for skyblock skill's levels.
+ */
 public class IntegerToRoman  {
 
     private static final IntegerToRoman instance = new IntegerToRoman();

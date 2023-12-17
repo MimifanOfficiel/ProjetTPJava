@@ -40,7 +40,11 @@ public class MainFrameActionListener implements ActionListener, MouseListener {
 
             PlayerManager.getInstance().addPlayer(player, playerPanel);
             playerPanel.load(player);
-            playerPanel.getTabbedPane().setSelectedIndex(gameIndex);
+            try {
+                playerPanel.getTabbedPane().setSelectedIndex(gameIndex);
+            } catch (IndexOutOfBoundsException exception) {
+                playerPanel.getTabbedPane().setSelectedIndex(gameIndex-1);
+            }
 
             playerPanel.revalidate();
             playerPanel.repaint();

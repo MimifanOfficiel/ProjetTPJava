@@ -1,24 +1,37 @@
 package fr.mimifan.projethypixel.frames;
 
 import fr.mimifan.projethypixel.api.API;
+import fr.mimifan.projethypixel.api.Ressources;
+
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * JFrame used to update the Hypixel API key.
+ */
 public class SettingKeyFrame extends JFrame {
 
     private JTextField valueField;
 
+    /**
+     * Constructs a JFrame to change our API key.
+     */
     public SettingKeyFrame() {
         super("Change API key");
 
         setResizable(false);
         setSize(new Dimension(300, 200));
+        setIconImage(Ressources.getInstance().getHypixelIcon());
         setContentPane(buildContentPane());
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setVisible(true);
     }
 
+    /**
+     * Builds the content pane for this JFrame.
+     * @return a Container (JPanel here) containing every component of the JFrame.
+     */
     private Container buildContentPane() {
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -59,6 +72,10 @@ public class SettingKeyFrame extends JFrame {
 
         return panel;
     }
+
+    /**
+     * Handles what should happen once we clicked the confirmation button.
+     */
     private void handleOkButton() {
         API.getInstance().saveAPIKey(valueField.getText());
         dispose();

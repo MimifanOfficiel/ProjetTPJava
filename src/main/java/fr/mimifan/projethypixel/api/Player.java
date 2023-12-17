@@ -1,7 +1,6 @@
 package fr.mimifan.projethypixel.api;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.mimifan.projethypixel.api.data.HypixelData;
 import fr.mimifan.projethypixel.api.data.bedwars.Bedwars;
 import fr.mimifan.projethypixel.api.data.skyblock.SkyblockInfos;
@@ -10,6 +9,9 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.*;
 
+/**
+ * Class containing every information needed about a player on Hypixel.
+ */
 public class Player {
 
     private final String username;
@@ -32,6 +34,11 @@ public class Player {
     private final JsonNode sbNode;
 
 
+    /**
+     * Constructs a new instance of player with the two JsonNodes
+     * @param infos all Hypixel stats related information
+     * @param session session information (wether player is online or not)
+     */
     public Player(JsonNode infos, JsonNode session) {
         this.username = infos.get("displayname").asText();
         this.uuid = infos.get("uuid").asText();

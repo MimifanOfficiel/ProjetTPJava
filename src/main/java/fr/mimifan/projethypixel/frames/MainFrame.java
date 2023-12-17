@@ -8,17 +8,25 @@ import fr.mimifan.projethypixel.events.menu.FileMenuActionListener;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * @author Lila
+ * Class of the application's frame. <br>
+ * Singleton as it doesn't need to be instantiated more than once. <br>
+ * JFrame can be get outside this class to be used and modified by other classes.
+ */
 public class MainFrame {
 
-    private static MainFrame instance = new MainFrame();
+    private static final MainFrame instance = new MainFrame();
     private JFrame frame;
     private JTabbedPane playersPane;
     private JMenu refreshMenu;
 
-    private final int WIDTH = 800;
-    private final int HEIGHT = 500;
+    private final int WIDTH = 800, HEIGHT = 500;
     private final Dimension SIZE = new Dimension(WIDTH, HEIGHT);
 
+    /**
+     * Initialize the main frame to it's initial state
+     */
     public void load(){
         FlatDarculaLaf.setup();
         frame = new JFrame("Statpixel");
@@ -40,6 +48,10 @@ public class MainFrame {
 
     }
 
+    /**
+     * Creates the JMenuBar that will be shown on top of the application.
+     * @return JMenuBar to put on the frame.
+     */
     private JMenuBar getMenuBar() {
         JMenuBar menuBar = new JMenuBar();
         menuBar.add(getOptionsMenu());
@@ -48,6 +60,15 @@ public class MainFrame {
         return menuBar;
     }
 
+    /**
+     * Creates the "Options" for JMenuBar. <br>
+     * This menu contains 3 options:
+     * <ul> <li> Set player : to retrieve a player's information </li>
+     * <li> Change API key : To change the API key at anytime. </li>
+     * <li> Quit : to simply quit the application from the menu. </li>
+     * </uL>
+     * @return JMenu to put in the JMenuBar.
+     */
     private JMenu getOptionsMenu() {
         JMenu optionsMenu = new JMenu("Options");
 
@@ -82,18 +103,6 @@ public class MainFrame {
 
     public JTabbedPane getPlayersPane() {
         return playersPane;
-    }
-
-    public int getHEIGHT() {
-        return HEIGHT;
-    }
-
-    public int getWIDTH() {
-        return WIDTH;
-    }
-
-    public Dimension getSIZE() {
-        return SIZE;
     }
 
     public static MainFrame getInstance() {

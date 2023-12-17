@@ -23,6 +23,10 @@ public class SkyBlockProfilesMouseListener implements MouseListener {
 
     }
 
+    /**
+     * Shows a summary of the stats for the SkyBlock profile associated to the JButton.
+     * @param e the event to be processed.
+     */
     @Override
     public void mouseEntered(MouseEvent e) {
         if(e.getSource() instanceof JButton button) {

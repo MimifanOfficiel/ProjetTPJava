@@ -6,11 +6,21 @@ import fr.mimifan.projethypixel.api.Player;
 
 import java.util.HashMap;
 
+/**
+ * @author Lila
+ * Class containing all information on hypixel that does not need a player to be retrieved. <br>
+ * This class is used as a singleton
+ */
 public class HypixelData {
 
     private static final HypixelData instance = new HypixelData();
 
+    private final JsonNode skillsRequirements = API.getInstance().getSkillsLeveling();
+
     private final HashMap<String, String> rankPrefixes = new HashMap<>();
+
+    // Hashmap containing the Integer level and Double totalExperience
+    // For each level of each SkyBlock skills
     private final HashMap<Integer, Double> farmingRequirements = new HashMap<>(), miningRequirements = new HashMap<>(),
     combatRequirements = new HashMap<>(), foragingRequirements = new HashMap<>(), fishingRequirements = new HashMap<>(),
     enchantingRequirements = new HashMap<>(), alchemyRequirements = new HashMap<>(), carpentryRequirements = new HashMap<>(),
@@ -27,6 +37,9 @@ public class HypixelData {
         rankPrefixes.put("SUPERSTAR", "<html><font color=#f9801d>[MVP");
     }
 
+    /**
+     * Fills skills hashmaps with levels and experiences
+     */
     public void loadSkills() {
         fillMap(farmingRequirements, "FARMING");
         fillMap(miningRequirements, "MINING");
@@ -41,8 +54,13 @@ public class HypixelData {
         fillMap(tamingRequirements, "TAMING");
     }
 
+    /**
+     * Fills a hashmap with the level integer and double total experience value <br>
+     * For all levels we can get in the given skill
+     * @param map The map to fill
+     * @param skillName The name of the skill to fill the map from
+     */
     private void fillMap(HashMap<Integer, Double> map, String skillName) {
-        JsonNode skillsRequirements = API.getInstance().getSkillsLeveling();
         for(JsonNode level : skillsRequirements.get(skillName).get("levels")) map.put(level.get("level").asInt(), level.get("totalExpRequired").asDouble());
     }
 
