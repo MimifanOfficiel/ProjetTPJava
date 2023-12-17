@@ -1,11 +1,10 @@
 package fr.mimifan.projethypixel.customLayouts;
 
-import javax.swing.*;
 import java.awt.*;
 
 public class VerticalFlowLayout extends FlowLayout {
     public VerticalFlowLayout() {
-        super(FlowLayout.CENTER, 0, 0); // Utilisez le centre comme alignement vertical
+        super(FlowLayout.CENTER, 0, 0);
     }
 
     @Override

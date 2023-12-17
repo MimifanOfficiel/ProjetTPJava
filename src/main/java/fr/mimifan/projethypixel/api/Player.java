@@ -3,6 +3,8 @@ package fr.mimifan.projethypixel.api;
 import com.fasterxml.jackson.databind.JsonNode;
 import fr.mimifan.projethypixel.api.data.HypixelData;
 import fr.mimifan.projethypixel.api.data.bedwars.Bedwars;
+import fr.mimifan.projethypixel.api.data.buildbattle.BuildBattle;
+import fr.mimifan.projethypixel.api.data.murder.MurderMystery;
 import fr.mimifan.projethypixel.api.data.skyblock.SkyblockInfos;
 
 import java.text.DecimalFormat;
@@ -28,9 +30,10 @@ public class Player {
     private final int karma;
 
     private Bedwars bedwarsInfos;
+    private MurderMystery murderInfos;
+    private BuildBattle buildBattleInfos;
 
     private final HashMap<String, String> skyblockProfiles = new HashMap<>();
-    private final List<SkyblockInfos> skyblockProfilesInfos = new ArrayList<>();
     private final JsonNode sbNode;
 
 
@@ -44,6 +47,8 @@ public class Player {
         this.uuid = infos.get("uuid").asText();
         this.online = session.get("online").asBoolean();
         if(infos.get("stats").has("Bedwars")) this.bedwarsInfos = new Bedwars(infos.get("stats").get("Bedwars"), infos.get("achievements").get("bedwars_level").asInt());
+        if(infos.get("stats").has("MurderMystery")) this.murderInfos = new MurderMystery(infos.get("stats").get("MurderMystery"));
+        if(infos.get("stats").has("BuildBattle")) this.buildBattleInfos = new BuildBattle(infos.get("stats").get("BuildBattle"));
         if(online) {
             this.gameType = session.get("gameType").asText();
             this.mode = session.get("mode").asText();
@@ -63,10 +68,8 @@ public class Player {
 
         sbNode = infos.get("stats").has("SkyBlock") ? infos.get("stats").get("SkyBlock").get("profiles") : null;
 
-
         if(sbNode != null)
             for (JsonNode entry : sbNode) skyblockProfiles.put(entry.get("profile_id").asText(), entry.get("cute_name").asText());
-
     }
 
 
@@ -88,6 +91,15 @@ public class Player {
     public Bedwars getBedwarsInfos() {
         return bedwarsInfos;
     }
+
+    public MurderMystery getMurderMysteryInfos() {
+        return murderInfos;
+    }
+
+    public BuildBattle getBuildBattleInfos() {
+        return buildBattleInfos;
+    }
+
     public String getRank() {
         return HypixelData.getInstance().getRankPrefixes().get(hypixelRank);
     }

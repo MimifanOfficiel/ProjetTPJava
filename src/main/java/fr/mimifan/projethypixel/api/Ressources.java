@@ -31,19 +31,28 @@ public class Ressources {
 
     /**
      * Retrieves an image by its name in textures folder inside resources.
-     * @param textureName the texture name to get, without extension as it's supposed to be png.
+     * @param textureName the texture name to get.
      * @return a BufferedImage containing the texture data if file has been found.
      */
     public BufferedImage getTextureImage(String textureName) {
         BufferedImage image;
-        InputStream stream = Ressources.class.getResourceAsStream("/textures/" + textureName + ".png");
+        InputStream stream = Ressources.class.getResourceAsStream("/textures/" + textureName);
+
+        if (stream == null) {
+            System.out.println("Resource not found: " + textureName);
+            return null;
+        }
 
         try {
-            assert stream != null;
-            image = ImageIO.read(stream); } catch (IOException e) { throw new RuntimeException(e);}
+            image = ImageIO.read(stream);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
 
         return image;
     }
+
 
 
     public static Ressources getInstance() {

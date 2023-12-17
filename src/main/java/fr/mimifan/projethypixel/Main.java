@@ -4,6 +4,8 @@ import fr.mimifan.projethypixel.api.API;
 import fr.mimifan.projethypixel.api.data.HypixelData;
 import fr.mimifan.projethypixel.frames.MainFrame;
 
+import javax.swing.*;
+import java.awt.event.ActionListener;
 import java.util.concurrent.CompletableFuture;
 
 public class Main {
@@ -19,8 +21,16 @@ public class Main {
         if (System.currentTimeMillis() - API.getInstance().getLastEdit() > 3 * 24 * 60 * 60 * 1000) API.getInstance().changeAPIKey();
         else MainFrame.getInstance().getFrame().setVisible(true);
 
+        @SuppressWarnings("unused")
         CompletableFuture<Void> skillsLoading = CompletableFuture.runAsync(() -> HypixelData.getInstance().loadSkills());
 
+        ActionListener taskPerformer = evt -> {
+            MainFrame.getInstance().getPlayerListModel().removeAllElements();
+            MainFrame.getInstance().loadPlayerListFromPreferences();
+        };
+        Timer timer = new Timer(30000, taskPerformer);
+
+        timer.start();
     }
 
 }

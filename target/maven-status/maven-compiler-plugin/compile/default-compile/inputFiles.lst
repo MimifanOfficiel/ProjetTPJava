@@ -4,6 +4,7 @@ C:\Users\Lila\Desktop\Dev Perso\ProjetTPJava\src\main\java\fr\mimifan\projethypi
 C:\Users\Lila\Desktop\Dev Perso\ProjetTPJava\src\main\java\fr\mimifan\projethypixel\api\data\skywars\SkywarsInfos.java
 C:\Users\Lila\Desktop\Dev Perso\ProjetTPJava\src\main\java\fr\mimifan\projethypixel\api\data\skyblock\SkyblockInfos.java
 C:\Users\Lila\Desktop\Dev Perso\ProjetTPJava\src\main\java\fr\mimifan\projethypixel\api\Ressources.java
+C:\Users\Lila\Desktop\Dev Perso\ProjetTPJava\src\main\java\fr\mimifan\projethypixel\api\data\murder\MurderMystery.java
 C:\Users\Lila\Desktop\Dev Perso\ProjetTPJava\src\main\java\fr\mimifan\projethypixel\frames\SettingKeyFrame.java
 C:\Users\Lila\Desktop\Dev Perso\ProjetTPJava\src\main\java\fr\mimifan\projethypixel\api\data\HypixelData.java
 C:\Users\Lila\Desktop\Dev Perso\ProjetTPJava\src\main\java\fr\mimifan\projethypixel\frames\MainFrame.java
@@ -12,6 +13,7 @@ C:\Users\Lila\Desktop\Dev Perso\ProjetTPJava\src\main\java\fr\mimifan\projethypi
 C:\Users\Lila\Desktop\Dev Perso\ProjetTPJava\src\main\java\fr\mimifan\projethypixel\utils\IntegerToRoman.java
 C:\Users\Lila\Desktop\Dev Perso\ProjetTPJava\src\main\java\fr\mimifan\projethypixel\panels\GlobalPanel.java
 C:\Users\Lila\Desktop\Dev Perso\ProjetTPJava\src\main\java\fr\mimifan\projethypixel\manager\PlayerManager.java
+C:\Users\Lila\Desktop\Dev Perso\ProjetTPJava\src\main\java\fr\mimifan\projethypixel\panels\MurderMysteryPanel.java
 C:\Users\Lila\Desktop\Dev Perso\ProjetTPJava\src\main\java\fr\mimifan\projethypixel\panels\BedwarsPanel.java
 C:\Users\Lila\Desktop\Dev Perso\ProjetTPJava\src\main\java\fr\mimifan\projethypixel\panels\skyblock\SkyblockProfilePanel.java
 C:\Users\Lila\Desktop\Dev Perso\ProjetTPJava\src\main\java\fr\mimifan\projethypixel\events\skyblock\SkyBlockProfilesActionListener.java

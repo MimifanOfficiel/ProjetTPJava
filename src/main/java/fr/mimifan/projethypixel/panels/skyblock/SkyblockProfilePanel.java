@@ -19,7 +19,7 @@ import java.util.List;
 
 public class SkyblockProfilePanel extends JPanel {
 
-    private final BufferedImage bufferedImage = Ressources.getInstance().getTextureImage("sb_profiles_gui");
+    private final BufferedImage bufferedImage = Ressources.getInstance().getTextureImage("sb_profiles_gui.png");
     private final ImageIcon sbGui = new ImageIcon(bufferedImage.getScaledInstance(bufferedImage.getWidth()*4,
             bufferedImage.getHeight()*4, Image.SCALE_SMOOTH));
 
@@ -70,10 +70,10 @@ public class SkyblockProfilePanel extends JPanel {
     private JButton createButton(String alt, String profileId, String mode) {
         JButton button = new JButton(alt);
         BufferedImage bufferedImage = switch (mode) {
-            case "ironman" -> Ressources.getInstance().getTextureImage("iron_chestplate");
-            case "island"  -> Ressources.getInstance().getTextureImage("oak_sapling");
-            case "bingo"   -> Ressources.getInstance().getTextureImage("golden_apple");
-            case "default" -> Ressources.getInstance().getTextureImage("grass_block_side");
+            case "ironman" -> Ressources.getInstance().getTextureImage("iron_chestplate.png");
+            case "island"  -> Ressources.getInstance().getTextureImage("oak_sapling.png");
+            case "bingo"   -> Ressources.getInstance().getTextureImage("golden_apple.png");
+            case "default" -> Ressources.getInstance().getTextureImage("grass_block_side.png");
             default -> null;
         };
         if(bufferedImage != null) {
@@ -104,10 +104,10 @@ public class SkyblockProfilePanel extends JPanel {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
-        panel.add(LabelUtils.getInstance().getLabelWithIcon("grass_block_side", "Default Island Type", 16, 1.5));
-        panel.add(LabelUtils.getInstance().getLabelWithIcon("oak_sapling", "Stranded Island", 16, 1.5));
-        panel.add(LabelUtils.getInstance().getLabelWithIcon("iron_chestplate", "IronMan Island", 16, 1.5));
-        panel.add(LabelUtils.getInstance().getLabelWithIcon("golden_apple", "Bingo Island", 16, 1.5));
+        panel.add(LabelUtils.getInstance().getLabelWithIcon("grass_block_side.png", "Default Island Type", 16, 1.5));
+        panel.add(LabelUtils.getInstance().getLabelWithIcon("oak_sapling.png", "Stranded Island", 16, 1.5));
+        panel.add(LabelUtils.getInstance().getLabelWithIcon("iron_chestplate.png", "IronMan Island", 16, 1.5));
+        panel.add(LabelUtils.getInstance().getLabelWithIcon("golden_apple.png", "Bingo Island", 16, 1.5));
 
         int panelWidth = 200;
         int panelHeight = 100;

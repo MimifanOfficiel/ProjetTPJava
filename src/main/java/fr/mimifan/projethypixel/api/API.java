@@ -213,6 +213,12 @@ public class API {
         } catch (IOException e) { throw new RuntimeException(e); }
     }
 
+    public JLabel getSessionLabel(String playerName) {
+        JsonNode session = getSession(getUUID(playerName));
+        if(session.get("online").asBoolean()) return new JLabel("<html><font color=#55FF55>" + playerName + "</font></html>");
+        else return new JLabel("<html><font color=#FF5555>" + playerName + "</font></html>");
+    }
+
     /**
      * Gets a player's skin as a BufferedImage from <a href="https://minotar.net">Minotar</a> <br>
      * Minotar is a really nice website to visualize or get a player's skin, helmet, head and more.

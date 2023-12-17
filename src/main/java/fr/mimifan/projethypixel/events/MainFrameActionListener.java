@@ -1,13 +1,15 @@
 package fr.mimifan.projethypixel.events;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import fr.mimifan.projethypixel.Main;
 import fr.mimifan.projethypixel.api.API;
 import fr.mimifan.projethypixel.api.Player;
+import fr.mimifan.projethypixel.frames.AddFavouritePlayerFrame;
 import fr.mimifan.projethypixel.frames.MainFrame;
+import fr.mimifan.projethypixel.frames.RemoveFavouritePlayerFrame;
 import fr.mimifan.projethypixel.manager.PlayerManager;
 import fr.mimifan.projethypixel.panels.PlayerPanel;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -17,7 +19,6 @@ public class MainFrameActionListener implements ActionListener, MouseListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
     }
 
     @Override
@@ -48,7 +49,8 @@ public class MainFrameActionListener implements ActionListener, MouseListener {
 
             playerPanel.revalidate();
             playerPanel.repaint();
-        }
+        } else if(e.getSource().equals(MainFrame.getInstance().getAddFavPlayer())) SwingUtilities.invokeLater(AddFavouritePlayerFrame::new);
+        else if(e.getSource().equals(MainFrame.getInstance().getRemoveFavPlayer())) SwingUtilities.invokeLater(RemoveFavouritePlayerFrame::new);
     }
 
     @Override
