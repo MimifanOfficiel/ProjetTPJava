@@ -13,21 +13,34 @@ import java.util.HashMap;
  */
 public class HypixelData {
 
+    /**
+     * Current instance of this class.
+     */
     private static final HypixelData instance = new HypixelData();
 
+    /**
+     * JsonNode for skills requirements (which total exp required for which level).
+     */
     private final JsonNode skillsRequirements = API.getInstance().getSkillsLeveling();
 
+    /**
+     * Prefixes of each ranks (e.g. MVP+)
+     */
     private final HashMap<String, String> rankPrefixes = new HashMap<>();
 
-    // Hashmap containing the Integer level and Double totalExperience
-    // For each level of each SkyBlock skills
+    /**
+     * Hashmap containing the Integer level and Double totalExperience
+     * For each level of each SkyBlock skills
+     */
     private final HashMap<Integer, Double> farmingRequirements = new HashMap<>(), miningRequirements = new HashMap<>(),
     combatRequirements = new HashMap<>(), foragingRequirements = new HashMap<>(), fishingRequirements = new HashMap<>(),
     enchantingRequirements = new HashMap<>(), alchemyRequirements = new HashMap<>(), carpentryRequirements = new HashMap<>(),
     runeCraftingRequirements = new HashMap<>(), socialRequirements = new HashMap<>(), tamingRequirements = new HashMap<>();
 
 
-
+    /**
+     * Initializes default values.
+     */
     public void init(){
         rankPrefixes.put(null,        "<html><font color=#9c9d97>");
         rankPrefixes.put("VIP",       "<html><font color=#80c71f>[VIP]");
@@ -65,10 +78,18 @@ public class HypixelData {
     }
 
 
+    /**
+     * @return {@link HypixelData#rankPrefixes}
+     */
     public HashMap<String, String> getRankPrefixes() {
         return rankPrefixes;
     }
 
+    /**
+     * Returns a playerName formatted with its rank prefix and colors.
+     * @param player the player to format its name.
+     * @return a String, the formatted name.
+     */
     public String getFormattedName(Player player){
         if(player.isSuperstar()) return "<html><font color=#f9801d>[MVP</font><font color=red>++</font><font color=#f9801d>] " + player.getName();
         return player.getRank() + " " + player.getName() + "</font></html>";
@@ -85,50 +106,86 @@ public class HypixelData {
         }*/
     }
 
+    /**
+     * @return {@link HypixelData#farmingRequirements}
+     */
     public HashMap<Integer, Double> getFarmingRequirements() {
         return farmingRequirements;
     }
 
+    /**
+     * @return {@link HypixelData#miningRequirements}
+     */
     public HashMap<Integer, Double> getMiningRequirements() {
         return miningRequirements;
     }
 
+    /**
+     * @return {@link HypixelData#combatRequirements}
+     */
     public HashMap<Integer, Double> getCombatRequirements() {
         return combatRequirements;
     }
 
+    /**
+     * @return {@link HypixelData#foragingRequirements}
+     */
     public HashMap<Integer, Double> getForagingRequirements() {
         return foragingRequirements;
     }
 
+    /**
+     * @return {@link HypixelData#fishingRequirements}
+     */
     public HashMap<Integer, Double> getFishingRequirements() {
         return fishingRequirements;
     }
 
+    /**
+     * @return {@link HypixelData#enchantingRequirements}
+     */
     public HashMap<Integer, Double> getEnchantingRequirements() {
         return enchantingRequirements;
     }
 
+    /**
+     * @return {@link HypixelData#alchemyRequirements}
+     */
     public HashMap<Integer, Double> getAlchemyRequirements() {
         return alchemyRequirements;
     }
 
+    /**
+     * @return {@link HypixelData#carpentryRequirements}
+     */
     public HashMap<Integer, Double> getCarpentryRequirements() {
         return carpentryRequirements;
     }
 
+    /**
+     * @return {@link HypixelData#runeCraftingRequirements}
+     */
     public HashMap<Integer, Double> getRuneCraftingRequirements() {
         return runeCraftingRequirements;
     }
 
+    /**
+     * @return {@link HypixelData#socialRequirements}
+     */
     public HashMap<Integer, Double> getSocialRequirements() {
         return socialRequirements;
     }
 
+    /**
+     * @return {@link HypixelData#tamingRequirements}
+     */
     public HashMap<Integer, Double> getTamingRequirements() {
         return tamingRequirements;
     }
 
+    /**
+     * @return {@link HypixelData#instance}
+     */
     public static HypixelData getInstance() {
         return instance;
     }

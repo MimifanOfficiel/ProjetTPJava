@@ -7,10 +7,14 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
+ * Class Ressources
  * This class handles resources retrievement from resources folder.
  */
 public class Ressources {
 
+    /**
+     * The current instance of this class.
+     */
     private static final Ressources instance = new Ressources();
 
     /**
@@ -54,7 +58,9 @@ public class Ressources {
     }
 
 
-
+    /**
+     * @return {@link Ressources#instance}
+     */
     public static Ressources getInstance() {
         return instance;
     }

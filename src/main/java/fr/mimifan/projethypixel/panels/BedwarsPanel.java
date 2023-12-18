@@ -4,15 +4,19 @@ import fr.mimifan.projethypixel.api.data.bedwars.Bedwars;
 import fr.mimifan.projethypixel.utils.LabelUtils;
 
 import javax.swing.*;
-import java.awt.*;
 import java.text.NumberFormat;
 
+/**
+ * Class BedwarsPanel
+ * Contains all Bedwars data as a JPanel
+ */
 public class BedwarsPanel extends JPanel {
 
-    private Bedwars bedwarsInfos;
-
+    /**
+     * Default constructor
+     * @param bedwarsInfos the bedwars instance to use to load this panel.
+     */
     public BedwarsPanel(Bedwars bedwarsInfos) {
-        this.bedwarsInfos = bedwarsInfos;
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         add(LabelUtils.getInstance().getLabelWithIcon("experience_bottle.png",
@@ -34,10 +38,5 @@ public class BedwarsPanel extends JPanel {
                 NumberFormat.getInstance().format(bedwarsInfos.getTotalEmeralds()), "#00AA00", 13, 1.5));
 
         add(new JScrollPane(bedwarsInfos.getStatTable()));
-    }
-
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
     }
 }

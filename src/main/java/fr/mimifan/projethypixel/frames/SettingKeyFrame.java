@@ -7,10 +7,14 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
+ * Class SettingKeyFrame
  * JFrame used to update the Hypixel API key.
  */
 public class SettingKeyFrame extends JFrame {
 
+    /**
+     * The field to enter the new api key.
+     */
     private JTextField valueField;
 
     /**

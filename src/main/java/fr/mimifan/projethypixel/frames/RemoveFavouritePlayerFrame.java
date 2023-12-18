@@ -6,7 +6,15 @@ import fr.mimifan.projethypixel.api.Ressources;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Class RemoveFavouritePlayerFrame
+ * Dialog frame to remove a player from user's favorites.
+ */
 public class RemoveFavouritePlayerFrame extends JFrame {
+
+    /**
+     * The field to enter the player's name to remove from favorites.
+     */
     private JTextField valueField;
 
     /**
@@ -73,8 +81,10 @@ public class RemoveFavouritePlayerFrame extends JFrame {
      * Handles what should happen once we clicked the confirmation button.
      */
     private void handleOkButton() {
-        MainFrame.getInstance().removePlayerFromList(valueField.getText());
-        MainFrame.getInstance().savePlayerListToPreferences();
-        dispose();
+        if(MainFrame.getInstance().getFavoritesPlayers().contains(valueField.getText())){
+            MainFrame.getInstance().removePlayerFromList(valueField.getText());
+            MainFrame.getInstance().savePlayerListToPreferences();
+            dispose();
+        } else dispose();
     }
 }

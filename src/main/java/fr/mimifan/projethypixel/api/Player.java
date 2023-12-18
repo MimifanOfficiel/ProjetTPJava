@@ -5,35 +5,91 @@ import fr.mimifan.projethypixel.api.data.HypixelData;
 import fr.mimifan.projethypixel.api.data.bedwars.Bedwars;
 import fr.mimifan.projethypixel.api.data.buildbattle.BuildBattle;
 import fr.mimifan.projethypixel.api.data.murder.MurderMystery;
-import fr.mimifan.projethypixel.api.data.skyblock.SkyblockInfos;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.*;
 
 /**
- * Class containing every information needed about a player on Hypixel.
+ * Class Player
+ * Contains every information needed about a player on Hypixel.
  */
 public class Player {
 
+    /**
+     * Player's name.
+     */
     private final String username;
+
+    /**
+     * Player's unique identifier.
+     */
     private final String uuid;
+
+    /**
+     * Player's rank on hypixel.
+     */
     private final String hypixelRank;
+
+    /**
+     * Player's MVP+ (or MVP++) color if they have one.
+     */
+    @SuppressWarnings("unused")
     private String rankPlusColor;
+
+    /**
+     * The type of game player is on (if online)
+     */
     private String gameType;
+
+    /**
+     * The mode of {@link Player#gameType} player is on.
+     */
     private String mode;
 
+    /**
+     * The dates of player's first join and last login.
+     */
     private final Date firstJoin, lastLogin;
+
+    /**
+     * Booleans indicating whether player is online/offline, mvp++ or not.
+     */
     private final boolean online, isSuperstar;
 
+    /**
+     * Player's hypixel level.
+     */
     private final double level;
+
+    /**
+     * Player's karma.
+     */
     private final int karma;
 
+    /**
+     * Player's bedwars' stats.
+     */
     private Bedwars bedwarsInfos;
+
+    /**
+     * Player's MurderMystery's stats.
+     */
     private MurderMystery murderInfos;
+
+    /**
+     * Player's BuildBattle's stats.
+     */
     private BuildBattle buildBattleInfos;
 
+    /**
+     * Player's skyblock profiles cuteName/ID.
+     */
     private final HashMap<String, String> skyblockProfiles = new HashMap<>();
+
+    /**
+     * The JsonNode with all player's skyblock's data.
+     */
     private final JsonNode sbNode;
 
 
@@ -73,60 +129,125 @@ public class Player {
     }
 
 
+    /**
+     * @return {@link Player#username}
+     */
     public String getName() {
         return username;
     }
+
+    /**
+     * @return {@link Player#uuid}
+     */
     public String getUUID() {
         return uuid;
     }
+
+    /**
+     * @return {@link Player#firstJoin}
+     */
     public Date getFirstJoin() {
         return firstJoin;
     }
+
+    /**
+     * @return {@link Player#lastLogin}
+     */
     public Date getLastLogin() {
         return lastLogin;
     }
+
+    /**
+     * @return {@link Player#online}
+     */
     public boolean isOnline() {
         return online;
     }
+
+    /**
+     * @return {@link Player#bedwarsInfos}
+     */
+    @SuppressWarnings("unused")
     public Bedwars getBedwarsInfos() {
         return bedwarsInfos;
     }
 
+    /**
+     * @return {@link Player#murderInfos}
+     */
+    @SuppressWarnings("unused")
     public MurderMystery getMurderMysteryInfos() {
         return murderInfos;
     }
 
+    /**
+     * @return {@link Player#buildBattleInfos}
+     */
+    @SuppressWarnings("unused")
     public BuildBattle getBuildBattleInfos() {
         return buildBattleInfos;
     }
 
+    /**
+     * @return {@link Player#hypixelRank}
+     */
     public String getRank() {
         return HypixelData.getInstance().getRankPrefixes().get(hypixelRank);
     }
+
+    /**
+     * @return {@link Player#isSuperstar}
+     */
     public boolean isSuperstar() {
         return isSuperstar;
     }
+
+    /**
+     * @return {@link Player#rankPlusColor}
+     */
     public String getRankPlusColor() {
         return rankPlusColor;
     }
+
+    /**
+     * @return {@link Player#level}
+     */
     public double getLevel() {
         return level;
     }
+
+    /**
+     * @return {@link Player#karma}
+     */
     public int getKarma() {
         return karma;
     }
+
+    /**
+     * @return {@link Player#gameType}
+     */
     public String getGameType() {
         return gameType;
     }
+
+    /**
+     * @return {@link Player#gameType}
+     */
     public String getMode(){
         if(gameType.equals("SKYBLOCK") && mode.equalsIgnoreCase("dynamic")) return "Someone's Island";
         return mode;
     }
 
+    /**
+     * @return {@link Player#sbNode}
+     */
     public JsonNode getSbNode() {
         return sbNode;
     }
 
+    /**
+     * @return {@link Player#skyblockProfiles}
+     */
     public HashMap<String, String> getSkyblockProfiles() {
         return skyblockProfiles;
     }

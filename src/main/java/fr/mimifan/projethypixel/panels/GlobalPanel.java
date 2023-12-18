@@ -8,8 +8,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.text.NumberFormat;
 
+/**
+ * Class GlobalPanel.
+ * Contains general information about the player.
+ */
 public class GlobalPanel extends JPanel {
 
+    /**
+     * Default constructor.
+     * @param player the player to load data from.
+     */
     public GlobalPanel(Player player) {
         setLayout(new GridLayout(1, 2));
 

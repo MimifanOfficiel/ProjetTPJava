@@ -1,27 +1,40 @@
 package fr.mimifan.projethypixel.api.data.skyblock;
 
-
 import com.fasterxml.jackson.databind.JsonNode;
 import fr.mimifan.projethypixel.api.API;
 import fr.mimifan.projethypixel.api.data.HypixelData;
 import fr.mimifan.projethypixel.utils.IntegerToRoman;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * Class SkyblockInfos
+ * Contains all stats about a Skyblock profile, identified by its profileId.
+ */
 public class SkyblockInfos {
 
     private final String gameMode;
-    private final String cuteName, profileId, ownerUUID;
+    private final String cuteName;
+    private final String profileId;
     private final List<String> coopMembers = new ArrayList<>();
     private Double farmingExp, miningExp, combatExp, foragingExp, fishingExp,
             enchantingExp, alchemyExp, carpentryExp, runeCraftingExp, socialExp, tamingExp;
     private final HashMap<String, Integer> skills = new HashMap<>();
+    private final Integer unlockedCollection;
+    private final Integer MAXCOLLECTIONS = 73;
 
+    /**
+     * Default constructor
+     * @param ownerUUID The unique ID of the player who created this profile.
+     * @param profileId The ID of the profile.
+     * @param cuteName The name of the profile.
+     */
     public SkyblockInfos(String ownerUUID, String profileId, String cuteName) {
         JsonNode infos = API.getInstance().getSkyblockProfileInfos(profileId).get("profile");
 
-        this.ownerUUID = ownerUUID;
         this.gameMode = infos.has("game_mode") ? infos.get("game_mode").asText() : "default";
         this.profileId = profileId;
         this.cuteName = cuteName;
@@ -43,8 +56,13 @@ public class SkyblockInfos {
             this.tamingExp       = experience.has("experience_skill_taming")       ? experience.get("experience_skill_taming").asDouble() : 0;
             fillSkills();
         }
+
+        unlockedCollection = infos.get("members").get(ownerUUID).has("collection") ? infos.get("members").get(ownerUUID).get("collection").size() : 0;
     }
 
+    /**
+     * Finds skills levels from name, total experience earned and the requirements.
+     */
     private void fillSkills() {
         findLevel("Farming", farmingExp, HypixelData.getInstance().getFarmingRequirements());
         findLevel("Mining", miningExp, HypixelData.getInstance().getMiningRequirements());
@@ -59,16 +77,27 @@ public class SkyblockInfos {
         findLevel("Taming", tamingExp, HypixelData.getInstance().getTamingRequirements());
     }
 
-    private void findLevel(String skill, double experience, Map<Integer, Double> niveaux) {
-        for (Map.Entry<Integer, Double> entry : niveaux.entrySet()) {
+    /**
+     * Finds the level for one skill depending on the requirements and total experience earned.
+     * @param skill the skill's name
+     * @param experience the total amount of experience earned.
+     * @param levels the levels requirements of the skill
+     */
+    private void findLevel(String skill, double experience, Map<Integer, Double> levels) {
+        for (Map.Entry<Integer, Double> entry : levels.entrySet()) {
             if (experience < entry.getValue()) {
                 skills.put(skill, entry.getKey() - 1);
                 return;
             }
         }
-        skills.put(skill, niveaux.size());
+        skills.put(skill, levels.size());
     }
 
+    /**
+     * Finds the n top levels from all the player's levels.
+     * @param n the number of top levels to return
+     * @return The n top levels.
+     */
     private List<Map.Entry<String, Integer>> findTopLevels(int n) {
         List<Map.Entry<String, Integer>> sortedSkills = skills.entrySet().stream()
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder())).collect(Collectors.toList());
@@ -76,18 +105,31 @@ public class SkyblockInfos {
     }
 
 
+    /**
+     * @return {@link SkyblockInfos#cuteName}
+     */
     public String getCuteName() {
         return cuteName;
     }
 
+    /**
+     * @return {@link SkyblockInfos#profileId}
+     */
     public String getProfileId() {
         return profileId;
     }
 
+    /**
+     * @return {@link SkyblockInfos#gameMode}
+     */
     public String getGameMode() {
         return gameMode;
     }
 
+    /**
+     * Builds a string representation of a summary for the profile.
+     * @return a HTML string.
+     */
     public String getTooltipText() {
         StringBuilder tooltipBuilder = new StringBuilder();
         tooltipBuilder.append("<html>");
@@ -114,22 +156,41 @@ public class SkyblockInfos {
                     append(IntegerToRoman.getInstance().intToRoman(topLevel.getValue())).append("</font><br>");
         }
 
+        tooltipBuilder.append("<font color=#AAAAAA>Collections unlocked : </font><font color=#FFFF55>")
+                .append( (Double.parseDouble(new DecimalFormat("#.##",
+                        DecimalFormatSymbols.getInstance(Locale.US)).format(
+                                ((double)unlockedCollection / MAXCOLLECTIONS)*100 ))  )).append("%");
+        tooltipBuilder.append("<br>");
+        tooltipBuilder.append("\t").append(unlockedCollection).append("/").append(MAXCOLLECTIONS).append("</font>");
+
         tooltipBuilder.append("</html>");
         return tooltipBuilder.toString();
     }
 
+    /**
+     * @return Wether profile is ironman or not.
+     */
     public boolean ironMan() {
         return gameMode.equals("ironman");
     }
 
+    /**
+     * @return Wether profile is default or not.
+     */
     public boolean isDefault() {
         return gameMode.equals("default");
     }
 
+    /**
+     * @return Wether profile is stranded or not.
+     */
     public boolean stranded() {
         return gameMode.equals("island");
     }
 
+    /**
+     * @return Wether profile is bingo or not.
+     */
     public boolean bingo() {
         return gameMode.equals("bingo");
     }

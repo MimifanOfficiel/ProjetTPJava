@@ -6,8 +6,16 @@ import fr.mimifan.projethypixel.utils.LabelUtils;
 import javax.swing.*;
 import java.text.NumberFormat;
 
+/**
+ * Class BuildBattlePanel
+ * Contains all data about player's BuildBattle stats as a JPanel.
+ */
 public class BuildBattlePanel extends JPanel {
 
+    /**
+     * Default constructor
+     * @param buildBattleInfos the BuildBattle information
+     */
     public BuildBattlePanel(BuildBattle buildBattleInfos) {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         add(LabelUtils.getInstance().getLabelWithIcon("gold_nugget.png", "Coins : " +

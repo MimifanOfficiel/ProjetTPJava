@@ -5,8 +5,16 @@ import fr.mimifan.projethypixel.api.Ressources;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Class AddFavouritePlayerFrame
+ * Dialog frame to add a player to user's favorites.
+ */
 public class AddFavouritePlayerFrame extends JFrame {
-        private JTextField valueField;
+
+    /**
+     * The field to enter the player's name.
+     */
+    private JTextField valueField;
 
         /**
          * Constructs a JFrame to add a player in the favourites.
@@ -72,8 +80,10 @@ public class AddFavouritePlayerFrame extends JFrame {
          * Handles what should happen once we clicked the confirmation button.
          */
         private void handleOkButton() {
-            MainFrame.getInstance().addPlayerToList(valueField.getText());
-            MainFrame.getInstance().savePlayerListToPreferences();
-            dispose();
+            if(!MainFrame.getInstance().getFavoritesPlayers().contains(valueField.getText())) {
+                MainFrame.getInstance().addPlayerToList(valueField.getText());
+                MainFrame.getInstance().savePlayerListToPreferences();
+                dispose();
+            } else dispose();
         }
 }

@@ -7,13 +7,27 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * Class PlayerPanel
+ * Contains all player's panels and components.
+ */
 public class PlayerPanel extends JPanel {
 
+    /**
+     * The tabbed pane containing games panels.
+     */
     private final JTabbedPane infosPane = new JTabbedPane();
+
+    /**
+     * The panel containing all Skyblock profiles, loaded asynchronously.
+     */
     private SkyblockProfilePanel profilePanel = null;
 
-    public PlayerPanel() {}
-
+    /**
+     * Loads the player's main panel
+     * @param player The player to load data from.
+     * @return a PlayerPanel instance
+     */
     public PlayerPanel load(Player player) {
         removeAll();
         infosPane.removeAll();
@@ -55,11 +69,18 @@ public class PlayerPanel extends JPanel {
         if (gamePanel != null) infosPane.add(gameName, gamePanel);
     }
 
+    /**
+     * Paints the JPanel
+     * @param g the <code>Graphics</code> object to protect
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
     }
 
+    /**
+     * @return {@link PlayerPanel#infosPane}
+     */
     public JTabbedPane getTabbedPane() {
         return infosPane;
     }

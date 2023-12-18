@@ -2,7 +2,15 @@ package fr.mimifan.projethypixel.customLayouts;
 
 import java.awt.*;
 
+/**
+ * Class VerticalFlowLayout
+ * Creates a custom layout used for the profiles panel.
+ */
 public class VerticalFlowLayout extends FlowLayout {
+
+    /**
+     * Default constructor
+     */
     public VerticalFlowLayout() {
         super(FlowLayout.CENTER, 0, 0);
     }

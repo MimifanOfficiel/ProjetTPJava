@@ -17,14 +17,33 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Class SkyblockProfilePanel
+ * Panel containing the list of profiles the player has.
+ */
 public class SkyblockProfilePanel extends JPanel {
 
+    /**
+     * The image corresponding to the profile's gamemode.
+     */
     private final BufferedImage bufferedImage = Ressources.getInstance().getTextureImage("sb_profiles_gui.png");
+
+    /**
+     * The background image for this panel.
+     */
     private final ImageIcon sbGui = new ImageIcon(bufferedImage.getScaledInstance(bufferedImage.getWidth()*4,
             bufferedImage.getHeight()*4, Image.SCALE_SMOOTH));
 
+    /**
+     * The list of profiles' data.
+     */
     private final List<SkyblockInfos> skyblockInfosList = new ArrayList<>();
 
+    /**
+     * Default constructor
+     * @param ownerUUID the owner unique identifier of these profiles.
+     * @param profilesIdName the map filled with the name of the profile and their associated unique identifier.
+     */
     public SkyblockProfilePanel(String ownerUUID, HashMap<String, String> profilesIdName){
         setLayout(null);
         profilesIdName.forEach((id, name) -> {
@@ -37,6 +56,10 @@ public class SkyblockProfilePanel extends JPanel {
     }
 
 
+    /**
+     * Updates the layout containing the profile selector,
+     * so it's rendered correctly according to the background image.
+     */
     private void updateButtonLayout() {
         removeAll();
 
@@ -57,6 +80,10 @@ public class SkyblockProfilePanel extends JPanel {
         repaint();
     }
 
+    /**
+     * Paints the JPanel
+     * @param g the <code>Graphics</code> object to protect
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -67,6 +94,13 @@ public class SkyblockProfilePanel extends JPanel {
         g.drawImage(sbGui.getImage(), x, y, sbGui.getIconWidth(), sbGui.getIconHeight(), this);
     }
 
+    /**
+     * Creates a custom JButton with the specified Icon depending on the profile
+     * @param alt the profile name displayed even if icon is not found.
+     * @param profileId the profile's identifier
+     * @param mode the mode of the profile.
+     * @return A JButton fully usable
+     */
     private JButton createButton(String alt, String profileId, String mode) {
         JButton button = new JButton(alt);
         BufferedImage bufferedImage = switch (mode) {
@@ -100,6 +134,10 @@ public class SkyblockProfilePanel extends JPanel {
     }
 
 
+    /**
+     * Creates a JPanel located in the bottom right corner of the main panel.
+     * @return A JPanel telling user the association of icon and gamemode.
+     */
     private JPanel positionBottomRightPanel() {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));

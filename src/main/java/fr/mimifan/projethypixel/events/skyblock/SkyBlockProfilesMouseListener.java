@@ -7,6 +7,10 @@ import javax.swing.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+/**
+ * Class SkyBlockProfilesMouseListener
+ * Performs actions depending on mouse events
+ */
 public class SkyBlockProfilesMouseListener implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {

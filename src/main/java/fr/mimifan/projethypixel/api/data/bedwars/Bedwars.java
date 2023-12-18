@@ -5,17 +5,31 @@ import com.fasterxml.jackson.databind.JsonNode;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
+/**
+ * Class Bedwars
+ * Loads all data of bedwars gamemode.
+ */
 public class Bedwars extends BedwarsInfo {
 
+    /**
+     * The JsonNode containing all bedwars data.
+     */
     private JsonNode infos;
 
+    /**
+     * Constructor by default.
+     * @param bedwarsInfos {@link Bedwars#infos}
+     * @param level The player's bedwars level.
+     */
     public Bedwars(JsonNode bedwarsInfos, Integer level) {
         super(bedwarsInfos, "", "Total");
         this.infos  = bedwarsInfos;
         this.level = level;
     }
 
-
+    /**
+     * @return A JTable containing all player's stats on bedwars.
+     */
     public JTable getStatTable() {
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("GameMode");

@@ -213,6 +213,11 @@ public class API {
         } catch (IOException e) { throw new RuntimeException(e); }
     }
 
+    /**
+     * Checks if playerName is online or no, making a label (green if yes, red  otherwise)
+     * @param playerName the player's name to check session of.
+     * @return A green JLabel with playerName if they are online, red otherwise.
+     */
     public JLabel getSessionLabel(String playerName) {
         JsonNode session = getSession(getUUID(playerName));
         if(session.get("online").asBoolean()) return new JLabel("<html><font color=#55FF55>" + playerName + "</font></html>");
@@ -253,6 +258,9 @@ public class API {
         return null;
     }
 
+    /**
+     * @return {@link API#instance}
+     */
     public static API getInstance() {
         return instance;
     }

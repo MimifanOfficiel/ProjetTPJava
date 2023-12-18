@@ -15,15 +15,26 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+/**
+ * Class MainFrameActionListener
+ * Performs actions depending on some interraction with MainFrame.
+ */
 public class MainFrameActionListener implements ActionListener, MouseListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        switch (e.getActionCommand()) {
+            case "addFavPlayer" -> SwingUtilities.invokeLater(AddFavouritePlayerFrame::new);
+            case "removeFavPlayer" -> SwingUtilities.invokeLater(RemoveFavouritePlayerFrame::new);
+        }
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
         if(e.getSource().equals(MainFrame.getInstance().getRefreshButton())){
+            MainFrame.getInstance().getPlayerListModel().removeAllElements();
+            MainFrame.getInstance().loadPlayerListFromPreferences();
+
             MainFrame.getInstance().getRefreshButton().setSelected(false);
             int index = MainFrame.getInstance().getPlayersPane().getSelectedIndex();
             if(index < 0) return;
@@ -49,8 +60,7 @@ public class MainFrameActionListener implements ActionListener, MouseListener {
 
             playerPanel.revalidate();
             playerPanel.repaint();
-        } else if(e.getSource().equals(MainFrame.getInstance().getAddFavPlayer())) SwingUtilities.invokeLater(AddFavouritePlayerFrame::new);
-        else if(e.getSource().equals(MainFrame.getInstance().getRemoveFavPlayer())) SwingUtilities.invokeLater(RemoveFavouritePlayerFrame::new);
+        }
     }
 
     @Override

@@ -39,6 +39,7 @@ public class LabelUtils {
      * Creates a custom label with : <br> <ul>
      * <li> An icon. (textures has to be in resources/textures) </li>
      * <li> A text. </li>
+     * </ul>
      * @param iconName The png name of the icon. (without the extension, supposed .png)
      * @param labelText The label text, will appear after the icon.
      * @return A Box (JComponent) to add to your container.
@@ -163,6 +164,9 @@ public class LabelUtils {
 
 
 
+    /**
+     * @return {@link LabelUtils#instance}
+     */
     public static LabelUtils getInstance() {
         return instance;
     }
